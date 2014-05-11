@@ -9,6 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class ClientActivity extends ActionBarActivity {
 
@@ -57,6 +61,27 @@ public class ClientActivity extends ActionBarActivity {
 					container, false);
 			return rootView;
 		}
+	}
+	
+	public void sendName(View view){ 
+		RelativeLayout rl = (RelativeLayout) findViewById(R.id.layout);
+		EditText editText = (EditText) findViewById(R.id.enter_name);
+		String name = editText.getText().toString();
+		if (name.length() >0 && name.length() <= 10){
+			rl.removeAllViews();
+			showHand(rl,name);
+		}
+		else{
+			TextView tv = (TextView) findViewById(R.id.enter_name);
+			tv.setWidth(200);
+			tv.setText("");
+			tv.setHint(getString(R.string.enter_name));
+		}
+				
+	}
+	public void showHand(RelativeLayout l, String name){
+		
+		//Button b = new Button();
 	}
 
 }
