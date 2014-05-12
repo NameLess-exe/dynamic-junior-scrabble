@@ -3,6 +3,7 @@ package scrabble.rabble;
 public class Player{
     String name;
     String[] tiles = new String[5];
+    int identifier;
     boolean isTurn = false;
 
     public void construct(String[] s){

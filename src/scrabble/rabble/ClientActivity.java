@@ -7,17 +7,16 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ClientActivity extends ActionBarActivity {
-	TilePool tp = new TilePool();												// server tile pool
+	Server server = new Server();											// server
 	Player p = new Player();													// a server player
+	String playerName;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,7 +27,10 @@ public class ClientActivity extends ActionBarActivity {
 		}
 		RelativeLayout rl = (RelativeLayout) findViewById(R.id.layout);			// removes the tile_button from the form initially
 		rl.removeView(findViewById(R.id.tile_button));
-		tp.getPool();															// load a tile pool
+		server.init();															// load a tile pool
+		server.addPlayer("Zoe");
+		server.addPlayer("Jeff");
+		server.addPlayer("David");
 	}
 
 	@Override
@@ -74,8 +76,29 @@ public class ClientActivity extends ActionBarActivity {
 		EditText editText = (EditText) findViewById(R.id.enter_name);
 		String name = editText.getText().toString();
 		if (name.length() >0 && name.length() <= 10){
-			rl.removeAllViews();
-			showHand(rl,name);
+			Boolean b = false;
+			for(int i = 0;i < name.length();i++){
+				String s = Character.toString(name.charAt(i));
+				 if(!s.matches("[A-Za-z]")) b= true;
+			}
+			if(b == false){
+				rl.removeAllViews();
+				String caps = "";
+				for(int i = 0;i < name.length();i++){
+					String c = Character.toString(name.charAt(i));
+					if(i == 0) c = c.toUpperCase();
+					caps += c;
+							
+				}
+				playerName = caps;
+				showHand(rl);
+			}
+			else{
+				TextView tv = (TextView) findViewById(R.id.enter_name);
+				tv.setWidth(200);
+				tv.setText("");
+				tv.setHint("You may only enter letters");	
+			}
 		}
 		else{
 			TextView tv = (TextView) findViewById(R.id.enter_name);
@@ -85,43 +108,79 @@ public class ClientActivity extends ActionBarActivity {
 		}
 				
 	}
-	public void showHand(RelativeLayout l, String name){
+	public void showHand(RelativeLayout l){
 		// section should be inside the server, not the client code
 		// name should be sent into the serve (code) where the new player is made, then sent back
-		System.out.println("Hello");
-		p.construct(tp.getTiles(5));
-		p.name = name;
+		PlayerNode temp = server.getPlayers();
+		server.addPlayer(playerName);
+		while(temp != null){
+			//// may not work with client? 
+			if(temp.player.identifier == server.numPlayers()){ // will be the last person who joined so will be num of players
+				p = temp.player;					// sets the local player to the player of the same name in the server
+				break;
+			}
+			else temp = temp.next;
+		}
 		///////////////////////////////////////////////////////////
-
+		System.out.println(p.name);
 		updateTiles(l, p);
 	}
 	
 	// update the buttons on the client to match the player
-	public void updateTiles(RelativeLayout l, Player p){
+	public void updateTiles(RelativeLayout l, Player pt){
 		l.removeAllViews();
-		Button b = new Button(this);
-		b.setText(p.name);								// button with the player name
-		l.addView(b);
+		PlayerNode temp = server.getPlayers();
+		int x = 0;
+		while (temp != null){
+			Button b = new Button(this);
+			b.setId(10+x);
+			b.setY((server.numPlayers()-1)*100 - (100 * x));
+			b.setWidth(200);
+			b.setText(temp.player.name);								// button with the player name
+			b.setOnClickListener(changeTiles);
+			l.addView(b);
+			temp=temp.next;
+			x++;
+		}
+
 		for(int i = 0; i < 5; i++){
-			b = new Button(this);						// buttons with the tile information
-			b.setId(20+i);
+			Button b = new Button(this);						// buttons with the tile information
+			b.setId(i);
 			b.setX(200+ 100 * i);						// this layout can be changed, just a placeholder
-			b.setText(p.tiles[i]);
+			b.setText(pt.tiles[i]);
+			if (pt.identifier != p.identifier) b.setEnabled(false);
+			else b.setEnabled(true);
 			b.setOnClickListener(onClickL);
 			l.addView(b);
 		}
 	}
-	// solution: change, call a refresh
+	
+	View.OnClickListener changeTiles = new View.OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			Button b = (Button) findViewById(v.getId());
+			PlayerNode temp = server.getPlayers();
+			while (temp != null){
+				if (temp.player.name == b.getText().toString()){
+					updateTiles((RelativeLayout) findViewById(R.id.layout), temp.player);
+					break;
+				}
+				else temp = temp.next;
+			}
+		}
+	};
+	
 	View.OnClickListener onClickL = new View.OnClickListener(){
 		@Override
 		public void onClick(View v) {
 			Button b = (Button) findViewById(v.getId());
 			String[] s = new String[1];
 			s[0] = b.getText().toString();
-			if(tp.isEmpty() == false){
-				p.replace(s, tp.getTiles(1));					// replaces the buttons text with a new character (tile)
+			if(server.tp.isEmpty() == false){
+				p.replace(s, server.tp.getTiles(1));					// replaces the buttons text with a new character (tile)
 			}
 			else System.out.println("NO TILES LEFT");
+			server.update(p);
 		    updateTiles((RelativeLayout) findViewById(R.id.layout), p);
 			System.out.println(b.getText().toString());
 		}
