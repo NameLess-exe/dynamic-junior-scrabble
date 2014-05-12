@@ -3,19 +3,21 @@ package scrabble.rabble;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ClientActivity extends ActionBarActivity {
-
+	TilePool tp = new TilePool();												// server tile pool
+	Player p = new Player();													// a server player
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,6 +26,9 @@ public class ClientActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		RelativeLayout rl = (RelativeLayout) findViewById(R.id.layout);			// removes the tile_button from the form initially
+		rl.removeView(findViewById(R.id.tile_button));
+		tp.getPool();															// load a tile pool
 	}
 
 	@Override
@@ -63,6 +68,7 @@ public class ClientActivity extends ActionBarActivity {
 		}
 	}
 	
+	// called when a name is entered and the button is pressed
 	public void sendName(View view){ 
 		RelativeLayout rl = (RelativeLayout) findViewById(R.id.layout);
 		EditText editText = (EditText) findViewById(R.id.enter_name);
@@ -80,8 +86,44 @@ public class ClientActivity extends ActionBarActivity {
 				
 	}
 	public void showHand(RelativeLayout l, String name){
-		
-		//Button b = new Button();
-	}
+		// section should be inside the server, not the client code
+		// name should be sent into the serve (code) where the new player is made, then sent back
+		System.out.println("Hello");
+		p.construct(tp.getTiles(5));
+		p.name = name;
+		///////////////////////////////////////////////////////////
 
+		updateTiles(l, p);
+	}
+	
+	// update the buttons on the client to match the player
+	public void updateTiles(RelativeLayout l, Player p){
+		l.removeAllViews();
+		Button b = new Button(this);
+		b.setText(p.name);								// button with the player name
+		l.addView(b);
+		for(int i = 0; i < 5; i++){
+			b = new Button(this);						// buttons with the tile information
+			b.setId(20+i);
+			b.setX(200+ 100 * i);						// this layout can be changed, just a placeholder
+			b.setText(p.tiles[i]);
+			b.setOnClickListener(onClickL);
+			l.addView(b);
+		}
+	}
+	// solution: change, call a refresh
+	View.OnClickListener onClickL = new View.OnClickListener(){
+		@Override
+		public void onClick(View v) {
+			Button b = (Button) findViewById(v.getId());
+			String[] s = new String[1];
+			s[0] = b.getText().toString();
+			if(tp.isEmpty() == false){
+				p.replace(s, tp.getTiles(1));					// replaces the buttons text with a new character (tile)
+			}
+			else System.out.println("NO TILES LEFT");
+		    updateTiles((RelativeLayout) findViewById(R.id.layout), p);
+			System.out.println(b.getText().toString());
+		}
+	};
 }
