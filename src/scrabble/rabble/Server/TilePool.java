@@ -1,4 +1,4 @@
-package scrabble.rabble;
+package scrabble.rabble.Server;
 
 import java.util.Random;
 

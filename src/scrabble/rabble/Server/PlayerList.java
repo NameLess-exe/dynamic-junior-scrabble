@@ -1,14 +1,16 @@
-package scrabble.rabble;
-public class Server{
+package scrabble.rabble.Server;
+
+import scrabble.rabble.Model.Player;
+
+public class PlayerList{
     TilePool tp = new TilePool();
-    PlayerNode head = null;
-    int currentIdent = 1;
-    /*
+    Node head = null;
+    
     private class Node{
         Player player;
         Node next;
     }
-    */
+    
     
     public void init(){
         tp.getPool();
@@ -16,12 +18,11 @@ public class Server{
     public void addPlayer(String name){
         Player p = new Player();
         p.name = name;
-        p.identifier = currentIdent;
-        currentIdent++;
+        p.identifier = numPlayers();
         p.tiles = tp.getTiles(5);
-        PlayerNode tmp = new PlayerNode();
+        Node tmp = new Node();
         tmp.player = p;
-        PlayerNode temp = head;
+        Node temp = head;
         if (temp == null){                                      // this player is the only item
             tmp.next = head;
             head = tmp;
@@ -57,7 +58,7 @@ public class Server{
     
     public int numPlayers(){
     	int i = 0;
-    	PlayerNode temp = head;
+    	Node temp = head;
     	while (temp != null){
     		i++;
     		temp = temp.next;
@@ -66,7 +67,7 @@ public class Server{
     }
     
     public void update(Player p){
-    	PlayerNode temp = head;
+    	Node temp = head;
     	while (temp != null){
     		if (temp.player.name == p.name){
     			temp.player = p;
@@ -76,13 +77,9 @@ public class Server{
     	}
     }
     
-
-    public PlayerNode getPlayers(){
-        return head;
-    }
     
     public void dump(){
-        PlayerNode temp = head;
+        Node temp = head;
         while(temp != null){
             System.out.println(temp.player.name);
             temp = temp.next;

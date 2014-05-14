@@ -1,15 +1,18 @@
-package scrabble.rabble;
+package scrabble.rabble.Model;
 
 public class Player{
-    String name;
-    String[] tiles = new String[5];
-    int identifier;
+    public String name;
+    public String[] tiles = new String[5];
+    public int identifier;
+    public int points;
+    
     boolean isTurn = false;
 
     public void construct(String[] s){
             tiles = s;
     }
     
+    /*
     // remove elements in s[], replace with ns[]
     public void replace(String[] r, String[] ns){
     	int x = 0;
@@ -21,6 +24,7 @@ public class Player{
    			if(x >= r.length)break; // if x is outside of bounds
    		}
     }
+    */
     
     // dump all the tiles in the player
     public void showTiles(){

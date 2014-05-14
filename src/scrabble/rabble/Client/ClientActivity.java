@@ -1,5 +1,12 @@
-package scrabble.rabble;
+package scrabble.rabble.Client;
 
+import scrabble.rabble.R;
+import scrabble.rabble.Model.Player;
+import scrabble.rabble.R.id;
+import scrabble.rabble.R.layout;
+import scrabble.rabble.R.menu;
+import scrabble.rabble.Server.ClientLogic;
+import scrabble.rabble.Server.PlayerList;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -14,8 +21,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ClientActivity extends ActionBarActivity {
-	Server server = new Server();											// server
+	PlayerList pl = new PlayerList();											// server
 	Player p = new Player();													// a server player
+	ClientLogic cl = new ClientLogic();
 	String playerName;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +35,9 @@ public class ClientActivity extends ActionBarActivity {
 		}
 		RelativeLayout rl = (RelativeLayout) findViewById(R.id.layout);			// removes the tile_button from the form initially
 		rl.removeView(findViewById(R.id.tile_button));
-		server.init();															// load a tile pool
-		server.addPlayer("Zoe");
-		server.addPlayer("Jeff");
-		server.addPlayer("David");
+		pl.addPlayer("Zoe");
+		pl.addPlayer("Jeff");
+		pl.addPlayer("David");
 	}
 
 	@Override
@@ -75,44 +82,22 @@ public class ClientActivity extends ActionBarActivity {
 		RelativeLayout rl = (RelativeLayout) findViewById(R.id.layout);
 		EditText editText = (EditText) findViewById(R.id.enter_name);
 		String name = editText.getText().toString();
-		if (name.length() >0 && name.length() <= 10){
-			Boolean b = false;
-			for(int i = 0;i < name.length();i++){
-				String s = Character.toString(name.charAt(i));
-				 if(!s.matches("[A-Za-z]")) b= true;
-			}
-			if(b == false){
-				rl.removeAllViews();
-				String caps = "";
-				for(int i = 0;i < name.length();i++){
-					String c = Character.toString(name.charAt(i));
-					if(i == 0) c = c.toUpperCase();
-					caps += c;
-							
-				}
-				playerName = caps;
-				showHand(rl);
-			}
-			else{
-				TextView tv = (TextView) findViewById(R.id.enter_name);
-				tv.setWidth(200);
-				tv.setText("");
-				tv.setHint("You may only enter letters");	
-			}
-		}
-		else{
-			TextView tv = (TextView) findViewById(R.id.enter_name);
-			tv.setWidth(200);
-			tv.setText("");
-			tv.setHint(getString(R.string.enter_name));
-		}
+		Player temp = new Player();
+		temp.name = name;
+		if ()
+		if ()	
+		TextView tv = (TextView) findViewById(R.id.enter_name);
+		tv.setWidth(200);
+		tv.setText("");
+		tv.setHint("You may only enter letters");
+		
 				
 	}
-	public void showHand(RelativeLayout l){
+	public void generateClientUI(RelativeLayout l){
 		// section should be inside the server, not the client code
 		// name should be sent into the serve (code) where the new player is made, then sent back
 		PlayerNode temp = server.getPlayers();
-		server.addPlayer(playerName);
+		pl.addPlayer(playerName);
 		while(temp != null){
 			//// may not work with client? 
 			if(temp.player.identifier == server.numPlayers()){ // will be the last person who joined so will be num of players
