@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="8"
         android:targetSdkVersion="19" />
 
     <application
@@ -14,14 +14,14 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:screenOrientation ="landscape"
-            android:theme = "@style/Theme.AppCompat"
-            android:name="scrabble.rabble.Client.ClientActivity"
-            android:label="@string/title_activity_client" >
+            android:name="scrabble.rabble.MainActivity"
+            android:label="@string/app_name" >
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
+
 </manifest>
