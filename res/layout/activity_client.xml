@@ -5,11 +5,13 @@
     android:layout_height="match_parent"
     tools:context="scrabble.rabble.ClientActivity"
     tools:ignore="MergeRootFrame" >
-	<RelativeLayout
+	<!--Layout for the details screen  -->
+    <RelativeLayout
         android:id="@+id/layout_getPlayer"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-         <TextView
+
+        <TextView
             android:id="@+id/textView_Age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +28,8 @@
             android:layout_centerHorizontal="true"
             android:ems="10"
             android:hint="@string/hint_name" >
-                        <requestFocus />
+
+            <requestFocus />
         </EditText>
 
         <EditText
@@ -35,329 +38,333 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/editText_Name"
             android:layout_centerVertical="true"
-            android:ems="10" 
- 			android:hint="@string/hint_age" />
+            android:ems="10"
+            android:hint="@string/hint_age" />
 
         <Button
-            android:id="@+id/button_OK"
+            android:id="@+id/button_joinGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView_Age"
             android:layout_marginLeft="30dp"
             android:layout_toRightOf="@+id/editText_Name"
-            android:text="@string/button_ok" 
-            android:onClick="checkInput"/>
+            android:onClick="joinGame"
+            android:text="@string/button_joinGame" />
 
         <TextView
             android:id="@+id/textView_Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/button_OK"
+            android:layout_above="@+id/button_joinGame"
             android:layout_marginRight="48dp"
             android:layout_toLeftOf="@+id/editText_Name"
             android:text="@string/text_name" />
-	    </RelativeLayout>
-	    
+    </RelativeLayout>
+
+    <!-- layout for the main client screen -->
+
     <RelativeLayout
         android:id="@+id/layout_client_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-    <View
-       android:id="@+id/fakeView"
-       android:layout_width="0dp"
-       android:layout_height="0dp" 
-       android:layout_centerInParent="true"/>
+
+        <!-- View in the centre of the screen, used for breaking the screen in half -->
+
+        <View
+            android:id="@+id/fakeView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:id="@+id/textView_myName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:text="@string/text_yourTiles"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView_myTurn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:textStyle="bold"
+            android:text="@string/text_my_turn" />
+
+        <!-- Linear layout for displaying tiles -->
 
         <LinearLayout
-            android:orientation="horizontal"
             android:id="@+id/layout_myTiles"
             android:layout_width="fill_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp">
+            android:layout_below="@+id/textView_myTurn"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/textView_myName"
-                android:layout_width="50dp"
+            <ImageView
+                android:id="@+id/imageView_tile1"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="0.25"
                 android:layout_marginLeft="10dp"
-                android:text="TEMPORARY:" />
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/imageView_tile2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/imageView_tile3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/imageView_tile4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/imageView_tile5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
 
             <TextView
-                android:id="@+id/textView_tile1"
-                android:layout_width="50dp"
+                android:id="@+id/textView_myScore"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-                android:text="HELLO"/>
-
-            <TextView
-                android:id="@+id/textView_tile2"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-                android:text="HELLO"/>
-            
-            <TextView
-                android:id="@+id/textView_tile3"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-                android:text="HELLO"/>
-            
-            <TextView
-                android:id="@+id/textView_tile4"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-                android:text="HELLO"/>
-            
-            <TextView
-                android:id="@+id/textView_tile5"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-                android:text="HELLO"/>
+                android:gravity="center_vertical"/>
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/avatar1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_myTiles"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/textView_P1Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_myTiles"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/avatar1"/>
+
+        <TextView
+            android:id="@+id/textView_P1Score"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/fakeView"
+            android:layout_below="@+id/layout_myTiles"
+            android:layout_marginTop="20dp"/>
 
         <LinearLayout
-        	android:orientation="horizontal"
-            android:id="@+id/layout_myScore"
+            android:id="@+id/layout_player1"
             android:layout_width="fill_parent"
-            android:layout_height="20dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
-            android:layout_below="@id/layout_myTiles">
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/fakeView"
+            android:layout_below="@+id/textView_P1Name"
+            android:layout_toRightOf="@id/avatar1"
+            android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/textView_myturn"
+            <ImageView
+                android:id="@+id/imageView_P1T1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.7"
-                android:layout_marginLeft="10dp"
-                android:text="@string/text_my_turn" />
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
 
-            <TextView
-                android:id="@+id/textView_score"
+            <ImageView
+                android:id="@+id/imageView_P1T2"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.3"
-                android:text="Score: " />
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/imageView_P1T3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/imageView_P1T4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/imageView_P1T5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
         </LinearLayout>
-        
 
-		<LinearLayout
-		    android:id="@+id/layout_player1"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_alignRight="@id/fakeView"
-      		android:layout_alignParentLeft="true"
-		    android:layout_centerVertical="true"
-		    android:orientation="horizontal" >
+        <ImageView
+            android:id="@+id/avatar2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/fakeView"
+            android:layout_below="@id/layout_myTiles"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_launcher" />
 
-			<TextView
-			    android:id="@+id/textView_P1Name"
-			    android:layout_marginLeft="10dp"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="0.25"
-			    android:text="Name1"/>
+        <TextView
+            android:id="@+id/textView_P2Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_myTiles"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/avatar2"/>
 
-			<TextView
-			    android:id="@+id/textView_P1T1"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="0.2"
-			    android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-			    android:text="A"/>
-			
-			<TextView
-			    android:id="@+id/textView_P1T2"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="0.2"
-			    android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-			    android:text="A"/>
-			
-			<TextView
-			    android:id="@+id/textView_P1T3"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="0.2"
-			    android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-			    android:text="A"/>
-			
-			<TextView
-			    android:id="@+id/textView_P1T4"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="0.2"
-			    android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-			    android:text="A"/>
-			
-			<TextView
-			    android:id="@+id/textView_P1T5"
-			    android:layout_marginRight="10dp"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="0.2"
-			    android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-			    android:text="A"/>
-		</LinearLayout>
-		<TextView
-		    android:id="@+id/textView_P1Score"
-		    android:layout_width="100dp"
-		    android:layout_height="wrap_content"
-		    android:layout_below="@id/layout_player1"
-		    android:layout_alignRight="@id/fakeView"
-		    android:text="Score:"/>
-		
-		
-		<LinearLayout
-		    android:id="@+id/layout_player2"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_alignLeft="@id/fakeView"
-      		android:layout_alignParentRight="true"
-		    android:layout_centerVertical="true"
-		    android:orientation="horizontal" >
-			
-			<TextView
-			    android:id="@+id/textView_P2Name"
-			    android:layout_marginLeft="10dp"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="0.25"
-			    android:text="Name2"/>
+        <TextView
+            android:id="@+id/textView_P2Score"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/layout_myTiles"
+            android:layout_marginTop="20dp"/>
 
-			
-			<TextView
-			    android:id="@+id/textView_P2T1"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="0.2"
-			    android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-			    android:text="B"/>
-			
-			<TextView
-			    android:id="@+id/textView_P2T2"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="0.2"
-			    android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-			    android:text="B"/>
-			
-			<TextView
-			    android:id="@+id/textView_P2T3"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="0.2"
-			    android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-			    android:text="B"/>
-			
-			<TextView
-			    android:id="@+id/textView_P2T4"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="0.2"
-			    android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-			    android:text="B"/>
-			
-			<TextView
-			    android:id="@+id/textView_P2T5"
-			    android:layout_marginRight="10dp"
-			    android:layout_width="0dp"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="0.2"
-			    android:background="@drawable/abc_ab_bottom_solid_light_holo" 
-			    android:text="B"/>
-		</LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_player2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView_P2Name"
+            android:layout_toRightOf="@id/avatar2"
+            android:orientation="horizontal" >
 
-		<TextView
-		    android:id="@+id/textView_P2Score"
-		    android:layout_width="100dp"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentRight="true"
-		    android:layout_below="@id/layout_player2"
-		    android:text="Score:" />
+            <ImageView
+                android:id="@+id/imageView_P2T1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
 
-		
-		
-		
-		<LinearLayout
-		    android:id="@+id/layout_player3"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_alignRight="@+id/fakeView"
-		    android:layout_alignParentLeft="true"
-		    android:layout_below="@+id/textView_P1Score"
-		    android:layout_marginTop="20dp"
-		    android:orientation="horizontal" >
+            <ImageView
+                android:id="@+id/imageView_P2T2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
 
-		    <TextView
-		        android:id="@+id/textView_P3Name"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="10dp"
-		        android:layout_weight="0.25"
-		        android:text="Name3" />
+            <ImageView
+                android:id="@+id/imageView_P2T3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
 
-		    <TextView
-		        android:id="@+id/textView_P3T1"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="0.2"
-		        android:background="@drawable/abc_ab_bottom_solid_light_holo"
-		        android:text="A" />
+            <ImageView
+                android:id="@+id/imageView_P2T4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
 
-		    <TextView
-		        android:id="@+id/textView_P3T2"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="0.2"
-		        android:background="@drawable/abc_ab_bottom_solid_light_holo"
-		        android:text="A" />
+            <ImageView
+                android:id="@+id/imageView_P2T5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+        </LinearLayout>
 
-		    <TextView
-		        android:id="@+id/textView_P3T3"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="0.2"
-		        android:background="@drawable/abc_ab_bottom_solid_light_holo"
-		        android:text="A" />
+        <ImageView
+            android:id="@+id/avatar3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_player1"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_launcher" />
 
-		    <TextView
-		        android:id="@+id/textView_P3T4"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="0.2"
-		        android:background="@drawable/abc_ab_bottom_solid_light_holo"
-		        android:text="A" />
+        <TextView
+            android:id="@+id/textView_P3Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_player1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/avatar3"/>
 
-		    <TextView
-		        android:id="@+id/textView_P3T5"
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_marginRight="10dp"
-		        android:layout_weight="0.2"
-		        android:background="@drawable/abc_ab_bottom_solid_light_holo"
-		        android:text="A" />
-		</LinearLayout>
-		<TextView
-		    android:id="@+id/textView_P3Score"
-		    android:layout_width="100dp"
-		    android:layout_height="wrap_content"
-		    android:layout_below="@+id/layout_player3"
-		    android:layout_alignRight="@id/fakeView"
-		    android:text="Score:" />
+        <TextView
+            android:id="@+id/textView_P3Score"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/fakeView"
+            android:layout_below="@+id/layout_player1"
+            android:layout_marginTop="20dp"/>
+
+        <LinearLayout
+            android:id="@+id/layout_player3"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/fakeView"
+            android:layout_below="@+id/textView_P3Name"
+            android:layout_toRightOf="@id/avatar3"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/imageView_P3T1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/imageView_P3T2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/imageView_P3T3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/imageView_P3T4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+
+            <ImageView
+                android:id="@+id/imageView_P3T5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:src="@drawable/ic_launcher" />
+        </LinearLayout>
+
     </RelativeLayout>
-    
+
 </FrameLayout>

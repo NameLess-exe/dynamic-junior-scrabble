@@ -1,19 +1,14 @@
 package scrabble.rabble;
-
 import java.util.ArrayList;
+
 public class Player{
-    String name;                     // Player name displayed by the client
-    int identifier;                  // Integer value used to determine players, should be the number of players when joined
-    int age;                         // Order is determined by age
-    int points;                      // Number of points a player has
-    boolean isTurn = false;                 // boolean controlling if the player is able to play or not
+    String name;                     				// Player name displayed by the client
+    int identifier;                  				// Integer value used to determine players, should be the number of players when joined
+    int age;                         				// Order is determined by age
+    int points;                      				// Number of points a player has
+    boolean isTurn = false;                 		// boolean controlling if the player is able to play or not
     ArrayList<Tile> tiles = new ArrayList<Tile>();  // List of tiles
-    
-    // Construct the player
-    public Player(String s, int a){
-        name = s;
-        age = a;
-    }
+
     
     // Set the player name
     public void setName(String s){

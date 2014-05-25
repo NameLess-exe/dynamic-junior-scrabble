@@ -1,24 +1,35 @@
 package scrabble.rabble;
 
+import java.util.ArrayList;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.os.Build;
+import android.provider.Settings.Secure;
 
 public class ClientActivity extends ActionBarActivity {
-	RelativeLayout client;		// screen with main UI
-	RelativeLayout details;		// screen with UI for getting player details
+	RelativeLayout client; // screen with main UI
+	RelativeLayout details; // screen with UI for getting player details
 	FrameLayout baseLayout;
+	ClientLogic logic;
 	Player myPlayer;
+	boolean firstUpdate = true;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -28,10 +39,14 @@ public class ClientActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		logic = new ClientLogic();
 		baseLayout = (FrameLayout) findViewById(R.id.container);
 		client = (RelativeLayout) findViewById(R.id.layout_client_screen);
 		details = (RelativeLayout) findViewById(R.id.layout_getPlayer);
-		baseLayout.removeView(client);												// Sets the UI to the first screen
+		baseLayout.removeView(client); // Sets the UI to the first screen
+		myPlayer = new Player();
+		myPlayer.setIdentifier(25);;
+		
 	}
 
 	@Override
@@ -70,27 +85,101 @@ public class ClientActivity extends ActionBarActivity {
 			return rootView;
 		}
 	}
-	public void checkInput(View view){
-		EditText ageText = (EditText) findViewById(R.id.editText_Age);
+
+	public void joinGame(View view) {
 		EditText nameText = (EditText) findViewById(R.id.editText_Name);
-		String age = ageText.getText().toString();
-		String name = nameText.getText().toString();
-        boolean isValid = true;
-        try{
-            int placeHolder = Integer.parseInt(age.toString());
-            isValid =true;
-        }
-        catch(Exception e){isValid = false;}
-        if (isValid == true){
-        	myPlayer = new Player(name, Integer.parseInt(age));
-        	//send myPlayer to the server, store it in tbe arraylist of the server
-        	baseLayout.removeView(details);
-        	baseLayout.addView(client);
-        }
-        else{
-        	ageText.setHint("Enter a number only");
-        	nameText.setHint("Enter your name");
-        }
+		EditText ageText = (EditText) findViewById(R.id.editText_Age);
+		Player temp = logic.checkInput(nameText.getText().toString(), ageText
+				.getText().toString());
+		if (myPlayer == null) {
+			ageText.setText("");
+			ageText.setHint("Enter a number only");
+			nameText.setHint("Enter your name");
+		} else {
+			myPlayer.setName(temp.getName());
+			myPlayer.setAge(temp.getAge());
+			myPlayer.setTurn(false);
+			Player p1 = new Player();
+			p1.setName("Jeff");
+			Player p2 = new Player();
+			p2.setName("Jenny");
+			Player p3 = new Player();
+			p3.setName("Kenny");
+			ArrayList<Player> alp = new ArrayList<Player>();
+			alp .add(p1);
+			alp.add(myPlayer);
+			alp.add(p2);
+			alp.add(p3);
+			addUi(alp.size());
+			updateUi(alp);
+			
+		}
+	}
+
+	public void addUi(int numPlayers) {
+		baseLayout.removeAllViews();
+		baseLayout.addView(client);
+		int toRemove = 4 - numPlayers; // get the number of players to remove
+		int temp = 3; // set to the last player
+		for (int i = 0; i < toRemove; i++) {
+			client.removeView((LinearLayout) findViewById(getResources()
+					.getIdentifier("layout_player" + temp, "id",
+							"scrabble.rabble")));
+			client.removeView((TextView) findViewById(getResources()
+					.getIdentifier("textView_P" + temp + "Name", "id",
+							"scrabble.rabble")));
+			client.removeView((TextView) findViewById(getResources()
+					.getIdentifier("textView_P" + temp + "Score", "id",
+							"scrabble.rabble")));
+			client.removeView((ImageView) findViewById(getResources()
+					.getIdentifier("avatar" + temp, "id", "scrabble.rabble")));
+			temp--;
+		}
+	}
+
+	public void updateUi(ArrayList<Player> playerList) {
+		int numPlayers = playerList.size();
+		for (int i = 0; i < numPlayers; i++) {
+			if (myPlayer.getIdentifier() == playerList.get(i).getIdentifier()){
+				myPlayer = playerList.remove(i);				// update the player
+				break;
+			}
+		}
+		
+		TextView temp = (TextView) findViewById(R.id.textView_myTurn);
+		if (myPlayer.getTurn() == true) temp.setText(R.string.text_my_turn);
+		else temp.setText(R.string.text_not_my_turn);
+		for (int i = 0;i < playerList.size();i++){
+			temp = (TextView) findViewById(getResources().getIdentifier("textView_P" + Integer.toString(i + 1) + "Name", "id", "scrabble.rabble"));
+			temp.setText(playerList.get(i).getName());
+			temp = (TextView) findViewById(getResources().getIdentifier("textView_P" + Integer.toString(i + 1) + "Score", "id", "scrabble.rabble"));
+			temp.setText("Score: "+ Integer.toString(playerList.get(i).getPoints()));
+		}
+	}
+
+	
+	public void dispatch(Object o) {
+		Log.d("Type", o.getClass().getName());
+		if (o.getClass().getName().toString() == "Player") {
+			myPlayer = (Player) o;
+		}
+		else if (o.getClass().getName().toString() == "java.util.ArrayList") {
+			ArrayList<Player> p = (ArrayList<Player>) o;
+			if (firstUpdate == true) {
+				firstUpdate = false;
+				addUi(p.size());
+				updateUi(p);
+			} else {
+				updateUi(p);
+			}
+		} else {
+			Log.e("Object type error",
+					"Object passed was not an ArrayList<Player>");
+		}
 	}
 }
-//android:label="@string/title_activity_client" >
+
+// client = (RelativeLayout)
+// findViewById(getResources().getIdentifier("layout_client_screen",
+// "id","scrabble.rabble"));
+// android:label="@string/title_activity_client" >

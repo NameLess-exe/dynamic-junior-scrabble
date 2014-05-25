@@ -4,12 +4,13 @@
     <string name="app_name">Scrabble</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_client">ClientActivity</string>
-	<string name="client_name">Most awesome client ever</string>
+	<string name="client_name">Scrabble</string>
 	<string name="text_name">Name:</string>
 	<string name="text_age">Age:</string>
 	<string name="hint_name">Enter your name</string>
 	<string name="hint_age">Enter your age</string>
-	<string name="button_ok">OK</string>
-	<string name="text_my_turn">It is your turn!</string>
+	<string name="button_joinGame">Join game</string>
+	<string name="text_yourTiles">Your Tiles (tap to place)</string>
+	<string name="text_my_turn">It is currently your turn!</string>
 	<string name="text_not_my_turn">It is not your turn!</string>
 </resources>
