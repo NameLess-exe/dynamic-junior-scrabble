@@ -112,7 +112,6 @@ public class ClientActivity extends ActionBarActivity {
 			alp.add(p3);
 			addUi(alp.size());
 			updateUi(alp);
-			
 		}
 	}
 

@@ -5,7 +5,9 @@
     android:layout_height="match_parent"
     tools:context="scrabble.rabble.ClientActivity"
     tools:ignore="MergeRootFrame" >
-	<!--Layout for the details screen  -->
+
+    <!-- Layout for the details screen -->
+
     <RelativeLayout
         android:id="@+id/layout_getPlayer"
         android:layout_width="match_parent"
@@ -91,8 +93,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:textStyle="bold"
-            android:text="@string/text_my_turn" />
+            android:text="@string/text_my_turn"
+            android:textStyle="bold" />
 
         <!-- Linear layout for displaying tiles -->
 
@@ -104,63 +106,102 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/textView_myTurn"
             android:layout_marginTop="5dp"
+            android:gravity="center"
             android:orientation="horizontal" >
 
-            <ImageView
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" >
+            </View>
+
+            <ImageButton
                 android:id="@+id/imageView_tile1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/ic_launcher" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" >
+            </View>
+
+            <ImageButton
+                android:id="@+id/imageView_tile2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
-                android:id="@+id/imageView_tile2"
+            <View
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:layout_height="0dp"
+                android:layout_weight="1" >
+            </View>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_tile3"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" >
+            </View>
+
+            <ImageButton
                 android:id="@+id/imageView_tile4"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
-                android:id="@+id/imageView_tile5"
+            <View
                 android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" >
+            </View>
+
+            <ImageButton
+                android:id="@+id/imageView_tile5"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
-                android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" >
+            </View>
 
             <TextView
                 android:id="@+id/textView_myScore"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical" 
+                android:text="Score:   "/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" >
+            </View>
         </LinearLayout>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/avatar1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_myTiles"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_launcher" />
+            android:background="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/textView_P1Name"
@@ -169,7 +210,7 @@
             android:layout_below="@id/layout_myTiles"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/avatar1"/>
+            android:layout_toRightOf="@id/avatar1" />
 
         <TextView
             android:id="@+id/textView_P1Score"
@@ -177,7 +218,7 @@
             android:layout_height="wrap_content"
             android:layout_alignRight="@id/fakeView"
             android:layout_below="@+id/layout_myTiles"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp" />
 
         <LinearLayout
             android:id="@+id/layout_player1"
@@ -188,50 +229,50 @@
             android:layout_toRightOf="@id/avatar1"
             android:orientation="horizontal" >
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P1T1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P1T2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P1T3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P1T4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P1T5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
         </LinearLayout>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/avatar2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/fakeView"
             android:layout_below="@id/layout_myTiles"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_launcher" />
+            android:background="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/textView_P2Name"
@@ -240,7 +281,7 @@
             android:layout_below="@id/layout_myTiles"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/avatar2"/>
+            android:layout_toRightOf="@id/avatar2" />
 
         <TextView
             android:id="@+id/textView_P2Score"
@@ -248,7 +289,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/layout_myTiles"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp" />
 
         <LinearLayout
             android:id="@+id/layout_player2"
@@ -259,49 +300,49 @@
             android:layout_toRightOf="@id/avatar2"
             android:orientation="horizontal" >
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P2T1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P2T2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P2T3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P2T4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P2T5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
         </LinearLayout>
 
-        <ImageView
+        <ImageButton
             android:id="@+id/avatar3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/layout_player1"
             android:layout_marginTop="20dp"
-            android:src="@drawable/ic_launcher" />
+            android:background="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/textView_P3Name"
@@ -310,7 +351,7 @@
             android:layout_below="@id/layout_player1"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
-            android:layout_toRightOf="@id/avatar3"/>
+            android:layout_toRightOf="@id/avatar3" />
 
         <TextView
             android:id="@+id/textView_P3Score"
@@ -318,7 +359,7 @@
             android:layout_height="wrap_content"
             android:layout_alignRight="@id/fakeView"
             android:layout_below="@+id/layout_player1"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp" />
 
         <LinearLayout
             android:id="@+id/layout_player3"
@@ -329,42 +370,41 @@
             android:layout_toRightOf="@id/avatar3"
             android:orientation="horizontal" >
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P3T1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P3T2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P3T3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P3T4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageView_P3T5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:src="@drawable/ic_launcher" />
+                android:background="@drawable/ic_launcher" />
         </LinearLayout>
-
     </RelativeLayout>
 
 </FrameLayout>
