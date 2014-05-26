@@ -1,0 +1,86 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="scrabble.rabble.CreateGameActivity"
+    tools:ignore="MergeRootFrame" >
+
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent" >
+
+           <TextView
+               android:id="@+id/textView_numPlayers"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignLeft="@+id/textView_gameAvatar"
+               android:layout_below="@+id/layout_avatars"
+               android:layout_marginTop="23dp"
+               android:text="@string/text_numPlayers" />
+           
+           <TextView
+               android:id="@+id/textView_gameAvatar"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignLeft="@+id/textView_gameName"
+               android:layout_centerVertical="true"
+               android:text="@string/text_gameAvatar" />
+
+           <TextView
+               android:id="@+id/textView_gameName"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="70dp"
+               android:layout_marginRight="48dp"
+               android:layout_toLeftOf="@+id/editText_gameName"
+               android:text="@string/text_gameName" />
+
+           <EditText
+               android:id="@+id/editText_gameName"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignBaseline="@+id/textView_gameName"
+               android:layout_alignBottom="@+id/textView_gameName"
+               android:layout_centerHorizontal="true"
+               android:ems="10"
+               android:hint="@string/hint_gameName" />
+
+           <LinearLayout
+               android:orientation="horizontal"
+               android:id="@+id/layout_avatars"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignLeft="@+id/editText_gameName"
+               android:layout_centerVertical="true"
+               android:ems="10" >
+               
+           </LinearLayout>
+
+
+           <EditText
+               android:id="@+id/EditText01"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignBaseline="@+id/textView_numPlayers"
+               android:layout_alignBottom="@+id/textView_numPlayers"
+               android:layout_alignRight="@+id/layout_avatars"
+               android:layout_marginLeft="20dp"
+               android:layout_toRightOf="@+id/textView_numPlayers"
+               android:ems="10"
+               android:hint="@string/hint_age" />
+
+           <Button
+               android:id="@+id/button_joinGame"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_alignBaseline="@+id/EditText01"
+               android:layout_alignBottom="@+id/EditText01"
+               android:layout_alignParentRight="true"
+               android:layout_marginRight="25dp"
+               android:onClick="joinGame"
+               android:text="@string/button_joinGame" />
+
+       </RelativeLayout>
+
+</FrameLayout>

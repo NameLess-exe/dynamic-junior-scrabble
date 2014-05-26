@@ -20,14 +20,20 @@
             android:theme="@style/Theme.AppCompat" >
         </activity>
         <activity
-            android:screenOrientation ="landscape"
             android:name="scrabble.rabble.ClientActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name="scrabble.rabble.CreateGameActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 
