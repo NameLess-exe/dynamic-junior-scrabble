@@ -6,81 +6,123 @@
     tools:context="scrabble.rabble.CreateGameActivity"
     tools:ignore="MergeRootFrame" >
 
-       <RelativeLayout
-           android:layout_width="match_parent"
-           android:layout_height="match_parent" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-           <TextView
-               android:id="@+id/textView_numPlayers"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignLeft="@+id/textView_gameAvatar"
-               android:layout_below="@+id/layout_avatars"
-               android:layout_marginTop="23dp"
-               android:text="@string/text_numPlayers" />
-           
-           <TextView
-               android:id="@+id/textView_gameAvatar"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignLeft="@+id/textView_gameName"
-               android:layout_centerVertical="true"
-               android:text="@string/text_gameAvatar" />
+        <TextView
+            android:id="@+id/textView_gameName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/text_gameName" />
 
-           <TextView
-               android:id="@+id/textView_gameName"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginTop="70dp"
-               android:layout_marginRight="48dp"
-               android:layout_toLeftOf="@+id/editText_gameName"
-               android:text="@string/text_gameName" />
+        <TextView
+            android:id="@+id/textView_gameAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView_gameName"
+            android:layout_below="@+id/textView_numPlayers"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/text_gameAvatar" />
 
-           <EditText
-               android:id="@+id/editText_gameName"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignBaseline="@+id/textView_gameName"
-               android:layout_alignBottom="@+id/textView_gameName"
-               android:layout_centerHorizontal="true"
-               android:ems="10"
-               android:hint="@string/hint_gameName" />
+        <TextView
+            android:id="@+id/textView_numPlayers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView_gameName"
+            android:layout_below="@+id/textView_gameName"
+            android:layout_marginTop="20dp"
+            android:text="@string/text_numPlayers" />
 
-           <LinearLayout
-               android:orientation="horizontal"
-               android:id="@+id/layout_avatars"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignLeft="@+id/editText_gameName"
-               android:layout_centerVertical="true"
-               android:ems="10" >
-               
-           </LinearLayout>
+        <EditText
+            android:id="@+id/editText_gameName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView_gameName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/textView_gameName"
+            android:ems="10"
+            android:hint="@string/hint_gameName" >
 
+            <requestFocus />
+        </EditText>
 
-           <EditText
-               android:id="@+id/EditText01"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignBaseline="@+id/textView_numPlayers"
-               android:layout_alignBottom="@+id/textView_numPlayers"
-               android:layout_alignRight="@+id/layout_avatars"
-               android:layout_marginLeft="20dp"
-               android:layout_toRightOf="@+id/textView_numPlayers"
-               android:ems="10"
-               android:hint="@string/hint_age" />
+        <EditText
+            android:id="@+id/editText_maxPlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView_numPlayers"
+            android:layout_alignRight="@+id/editText_gameName"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/textView_numPlayers"
+            android:ems="10"
+            android:hint="@string/hint_age" />
 
-           <Button
-               android:id="@+id/button_joinGame"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_alignBaseline="@+id/EditText01"
-               android:layout_alignBottom="@+id/EditText01"
-               android:layout_alignParentRight="true"
-               android:layout_marginRight="25dp"
-               android:onClick="joinGame"
-               android:text="@string/button_joinGame" />
+        <LinearLayout
+            android:id="@+id/layout_avatars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView_gameName"
+            android:layout_alignRight="@+id/editText_gameName"
+            android:layout_alignTop="@+id/textView_gameAvatar"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:orientation="horizontal" >
 
-       </RelativeLayout>
+            <TextView
+                android:id="@+id/server_avatar1"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="#0066CC" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                />
+
+            <TextView
+                android:id="@+id/server_avatar2"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="#0066CC" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                />
+
+            <TextView
+                android:id="@+id/server_avatar3"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="#0066CC" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="1dp"
+                />
+
+            <TextView
+                android:id="@+id/server_avatar4"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="#0066CC" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_createGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView_numPlayers"
+            android:layout_below="@+id/layout_avatars"
+            android:layout_marginTop="20dp"
+            android:onClick="joinGame"
+            android:text="@string/button_createGame" />
+    </RelativeLayout>
 
 </FrameLayout>

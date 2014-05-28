@@ -1,18 +1,25 @@
 package scrabble.rabble;
 
+import java.util.ArrayList;
+
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
-
+	ArrayList<String> servers;
+	String selectedLobby;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -22,11 +29,21 @@ public class MainActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		// get an ArrayList<string> of servers
+		///////////////// TEST \\\\\\\\\\\\\\\\\\\\\
+		servers = new ArrayList<String>();
+		servers.add("Leo's server");
+		servers.add("Scrabble Party!");
+		servers.add("The Scrabble rabble");
+		servers.add("The J Scrabs");
+		servers.add("Random scrabble lobby");
+		servers.add("Nameless lobby");
+		updateServers();
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
@@ -61,4 +78,41 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
+	public void updateServers(){
+		LinearLayout list = (LinearLayout) findViewById(R.id.linearLayout_servers);
+		for(int i = 0; i < servers.size();i++){
+			TextView tv = new TextView(this);
+			tv.setId(i);
+			tv.setBackgroundResource(R.drawable.outline);
+			tv.setTextSize(20);
+			tv.setText("  " + servers.get(i));
+
+			list.addView(tv);
+			tv.setOnClickListener(new View.OnClickListener() {
+			    @Override           
+			    public void onClick(View v) {
+			    	for(int i = 0;i < servers.size();i++){
+			    		TextView temp = (TextView) findViewById(i);
+			    		temp.setBackgroundResource(R.drawable.outline);
+			    	}
+			    	Button btn = (Button) findViewById(R.id.button_joinGame);
+			    	btn.setEnabled(true);
+			    	TextView temp = (TextView) v;
+			    	temp.setBackgroundResource(R.drawable.outline_selected);
+			    	selectedLobby = temp.getText().toString();
+			    }
+			});
+		}
+	}
+	
+	 public void joinGame(View view){
+		 // request the server to join as a client, then execute 
+		 Intent intent = new Intent(this,ClientActivity.class);
+		 startActivity(intent);
+	 }
+	 
+	 public void createGame(View view){
+		Intent intent = new Intent(this, CreateGameActivity.class);
+		startActivity(intent);
+	 }
 }

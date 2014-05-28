@@ -1,16 +1,30 @@
 package scrabble.rabble;
 import java.util.ArrayList;
 
-public class Player{
+public class Player extends Sendable{
     String name;                     				// Player name displayed by the client
     int identifier;                  				// Integer value used to determine players, should be the number of players when joined
     int age;                         				// Order is determined by age
     int points;                      				// Number of points a player has
+    int avatar = -1;								// 0-8 representing a picture, -1 = null
     boolean isTurn = false;                 		// boolean controlling if the player is able to play or not
     ArrayList<Tile> tiles = new ArrayList<Tile>();  // List of tiles
-
     
-    // Set the player name
+    @Override
+	public Type getType() {
+		// TODO Auto-generated method stub
+		return Type.PLAYER;
+	}
+    
+    public void setAvatar(int i){
+    	avatar = i;
+    }
+
+    public int getAvatar(){
+    	return avatar;
+    }
+    
+	// Set the player name
     public void setName(String s){
         name = s;
     }

@@ -1,15 +1,15 @@
 package scrabble.rabble;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.EditText;
 
 public class CreateGameActivity extends ActionBarActivity {
 
@@ -59,6 +59,20 @@ public class CreateGameActivity extends ActionBarActivity {
 					container, false);
 			return rootView;
 		}
+	}
+	
+	public void joinGame(View view){
+		/*
+		Intent intent = new Intent(this, INSERT_NAME_HERE.class);
+		EditText edit1 = (EditText) findViewById(R.id.editText_gameName);
+		EditText edit2 = (EditText) findViewById(R.id.editText_maxPlayer);
+		String sName = edit1.getText().toString();
+		String sPlayers = edit2.getText().toString();
+		intent.putExtra(serverName, sName);
+		intent.putExtra(maxPlayers, sPlayers);
+	   // public final static String serverName = "scrabble.rabble.SERVER_NAME";
+	   // public final static String maxPlayers = "scrabble.rabble.NUM_PLAYERS";
+		*/
 	}
 
 }

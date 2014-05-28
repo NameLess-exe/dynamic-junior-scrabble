@@ -10,6 +10,7 @@
     <string name="hint_name">Enter your name</string>
     <string name="hint_age">Enter your age</string>
     <string name="button_joinGame">Join game</string>
+    <string name="button_createGame">Create game</string>
     <string name="text_yourTiles">Your Tiles (tap to place)</string>
     <string name="text_my_turn">It is currently your turn!</string>
     <string name="text_not_my_turn">It is not your turn!</string>
@@ -17,7 +18,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="text_gameName">Game name:</string>
     <string name="text_gameAvatar">Game avatar:</string>
-	<string name="text_numPlayers">Max number of players:</string>
+    <string name="text_playerAvatar">Player avatar:</string>
+	<string name="text_numPlayers">Number of players:</string>
     <string name="hint_gameName">Enter a game name</string>
+    <string name="select_server">Select a server to join or create a new one:</string>
     
 </resources>

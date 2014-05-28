@@ -1,6 +1,11 @@
 package scrabble.rabble;
-public class Tile{
-    char value;
+public class Tile extends Sendable{
+    @Override
+	public Type getType() {
+		// TODO Auto-generated method stub
+		return Type.TILE;
+	}
+	char value;
     
     public Tile(char c){
         value = c;
