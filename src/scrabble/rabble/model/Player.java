@@ -1,4 +1,4 @@
-package scrabble.rabble.Model;
+package scrabble.rabble.model;
 import java.util.ArrayList;
 
 public class Player extends Sendable{

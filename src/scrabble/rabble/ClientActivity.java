@@ -2,12 +2,12 @@ package scrabble.rabble;
 
 import java.util.ArrayList;
 
-import scrabble.rabble.Model.Player;
-import scrabble.rabble.Model.PlayerList;
-import scrabble.rabble.Model.Sendable;
-import scrabble.rabble.Model.Tile;
-import scrabble.rabble.Model.TilePool;
-import scrabble.rabble.Model.Type;
+import scrabble.rabble.model.Player;
+import scrabble.rabble.model.PlayerList;
+import scrabble.rabble.model.Sendable;
+import scrabble.rabble.model.Tile;
+import scrabble.rabble.model.TilePool;
+import scrabble.rabble.model.Type;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
