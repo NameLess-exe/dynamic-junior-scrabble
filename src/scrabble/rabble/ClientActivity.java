@@ -2,28 +2,28 @@ package scrabble.rabble;
 
 import java.util.ArrayList;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import scrabble.rabble.Model.Player;
+import scrabble.rabble.Model.PlayerList;
+import scrabble.rabble.Model.Sendable;
+import scrabble.rabble.Model.Tile;
+import scrabble.rabble.Model.TilePool;
+import scrabble.rabble.Model.Type;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Build;
 
 public class ClientActivity extends ActionBarActivity {
 	RelativeLayout client; // screen with main UI
