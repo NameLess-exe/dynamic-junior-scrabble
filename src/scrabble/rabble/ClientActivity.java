@@ -111,15 +111,14 @@ public class ClientActivity extends ActionBarActivity {
 		EditText ageText = (EditText) findViewById(R.id.editText_Age);
 		Player temp = new Player();
 		CharSequence text = "";
-		if(checkInput(ageText.getText().toString()) == false){
+		if (checkInput(ageText.getText().toString()) == false) {
 			text = "Please enter numbers only";
 			ageText.setText("");
-		}
-		else if(nameText.getText().toString().length() == 0){
+		} else if (nameText.getText().toString().length() == 0) {
 			text = "Please enter your name";
 			nameText.setText("");
-		}
-		else if (myPlayer.getAvatar() == -1) text = "Please select an avatar";
+		} else if (myPlayer.getAvatar() == -1)
+			text = "Please select an avatar";
 		else {
 			myPlayer.setName(temp.getName());
 			myPlayer.setAge(temp.getAge());
@@ -130,13 +129,13 @@ public class ClientActivity extends ActionBarActivity {
 			myPlayer.setTurn(true);
 			myPlayer.setTiles(tempTilePool.getTiles(5));
 			Player p1 = new Player();
-			p1.setName("Jeff");
+			p1.setName("Tom");
 			p1.setTiles(tempTilePool.getTiles(5));
 			Player p2 = new Player();
-			p2.setName("Jenny");
+			p2.setName("Jojo");
 			p2.setTiles(tempTilePool.getTiles(5));
 			Player p3 = new Player();
-			p3.setName("Kenny");
+			p3.setName("Leo");
 			p3.setTiles(tempTilePool.getTiles(5));
 			alp = new PlayerList();
 			alp.addPlayer(p1);
@@ -146,7 +145,7 @@ public class ClientActivity extends ActionBarActivity {
 			dispatch((Sendable) alp);
 			// //////////////\\\\\\\\\\\\\\\\\\\\\
 		}
-		if (text != ""){
+		if (text != "") {
 			Context context = getApplicationContext();
 			int duration = Toast.LENGTH_LONG;
 			Toast toast = Toast.makeText(context, text, duration);
@@ -185,7 +184,8 @@ public class ClientActivity extends ActionBarActivity {
 			temp.setText(R.string.text_not_my_turn);
 			layout.setBackgroundColor(Color.parseColor("#99CCFF")); // Blue
 		}
-
+		temp = (TextView) findViewById(R.id.textView_myScore);
+		temp.setText("Score: " + myPlayer.getPoints());
 		ArrayList<Tile> playerTiles = myPlayer.getTiles();
 		// Reset the textViews holding each tile
 		for (int i = 0; i < 5; i++) {
@@ -268,7 +268,9 @@ public class ClientActivity extends ActionBarActivity {
 		if (myPlayer.getTurn() == false)
 			return;
 		TextView temp = (TextView) view;
-		for (int i = 0; i < myPlayer.getTiles().size(); i++) {
+		boolean valid = true;
+		int i = 0;
+		while(valid == true){
 			if (temp.getId() == getResources().getIdentifier(
 					"textView_tile" + Integer.toString(i + 1), "id",
 					"scrabble.rabble")) {
@@ -277,10 +279,14 @@ public class ClientActivity extends ActionBarActivity {
 				// network.send((Sendable) myPlayer.getTiles().get(i));
 
 				myPlayer.removeTile(myPlayer.getTiles().get(i));
-				alp.addPlayer(myPlayer);
 				myPlayer.showTiles();
-				break;
+				myPlayer.setTurn(false);
+				alp.addPlayer(myPlayer);
+				alp.get(0).setTurn(true);
+				valid = false;
 			}
+			i++;
+			if (i>myPlayer.getTiles().size()) valid = false;
 		}
 		dispatch((Sendable) alp);
 	}

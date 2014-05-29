@@ -97,6 +97,7 @@ public class Player extends Sendable{
         for (int i = 0; i < tiles.size();i++){
             Tile temp = tiles.get(i);
             if(temp.getValue() == t.getValue()) tiles.remove(i);
+            return;
         }
     }
     
