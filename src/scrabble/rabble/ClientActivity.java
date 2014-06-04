@@ -2,12 +2,12 @@ package scrabble.rabble;
 
 import java.util.ArrayList;
 
-import scrabble.rabble.Model.Player;
-import scrabble.rabble.Model.PlayerList;
-import scrabble.rabble.Model.Sendable;
-import scrabble.rabble.Model.Tile;
-import scrabble.rabble.Model.TilePool;
-import scrabble.rabble.Model.Type;
+import scrabble.rabble.model.Player;
+import scrabble.rabble.model.PlayerList;
+import scrabble.rabble.model.Sendable;
+import scrabble.rabble.model.Tile;
+import scrabble.rabble.model.TilePool;
+import scrabble.rabble.model.Type;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -207,8 +207,11 @@ public class ClientActivity extends ActionBarActivity {
 			temp.setText(R.string.text_not_my_turn);
 			playerColour = "#99CCFF";
 		}
+<<<<<<< HEAD
 
 		layout.setBackgroundColor(Color.parseColor(playerColour)); // Yellow
+=======
+>>>>>>> FETCH_HEAD
 		temp = (TextView) findViewById(R.id.textView_myScore);
 		temp.setText("Score: " + myPlayer.getPoints());
 		ArrayList<Tile> playerTiles = myPlayer.getTiles();
@@ -292,6 +295,7 @@ public class ClientActivity extends ActionBarActivity {
 	}
 
 	public void tilePressed(View view) {
+<<<<<<< HEAD
 		if (canPress == true) {
 			canPress = false;
 			if (myPlayer.getTurn() == false)
@@ -304,9 +308,22 @@ public class ClientActivity extends ActionBarActivity {
 						"textView_tile" + Integer.toString(i + 1), "id",
 						"scrabble.rabble")) {
 					// temp.setBackgroundColor(Color.parseColor("#0000FF"));
+=======
+		if (myPlayer.getTurn() == false)
+			return;
+		TextView temp = (TextView) view;
+		boolean valid = true;
+		int i = 0;
+		while(valid == true){
+			if (temp.getId() == getResources().getIdentifier(
+					"textView_tile" + Integer.toString(i + 1), "id",
+					"scrabble.rabble")) {
+				// temp.setBackgroundColor(Color.parseColor("#0000FF"));
+>>>>>>> FETCH_HEAD
 
 					// network.send((Sendable) myPlayer.getTiles().get(i));
 
+<<<<<<< HEAD
 					myPlayer.removeTile(myPlayer.getTiles().get(i), i);
 					if (myPlayer.getTiles().size() == 0) {
 						myPlayer.setTurn(false);
@@ -322,6 +339,17 @@ public class ClientActivity extends ActionBarActivity {
 			}
 			dispatch((Sendable) alp);
 			canPress = true;
+=======
+				myPlayer.removeTile(myPlayer.getTiles().get(i));
+				myPlayer.showTiles();
+				myPlayer.setTurn(false);
+				alp.addPlayer(myPlayer);
+				alp.get(0).setTurn(true);
+				valid = false;
+			}
+			i++;
+			if (i>myPlayer.getTiles().size()) valid = false;
+>>>>>>> FETCH_HEAD
 		}
 	}
 
