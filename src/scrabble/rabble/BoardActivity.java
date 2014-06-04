@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-import scrabble.rabble.Model.Player;
-import scrabble.rabble.Model.PlayerList;
-import scrabble.rabble.Model.Sendable;
-import scrabble.rabble.Model.Tile;
-import scrabble.rabble.Model.TilePool;
-import scrabble.rabble.Model.Type;
+import scrabble.rabble.model.Player;
+import scrabble.rabble.model.PlayerList;
+import scrabble.rabble.model.Sendable;
+import scrabble.rabble.model.Tile;
+import scrabble.rabble.model.TilePool;
+import scrabble.rabble.model.Type;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
@@ -41,7 +41,6 @@ public class BoardActivity extends ActionBarActivity {
 	private int WIDTH = 13;
 	private int HEIGHT = 13;
 	private Crossword boardInstance;
-	 ArrayList<IntTile> tileArray = new ArrayList<IntTile>();
 	String serverName;
 	int maxPlayers;
 	int currentPlayers;
@@ -108,7 +107,9 @@ public class BoardActivity extends ActionBarActivity {
 	public void displayBoard() {
 		base.addView(board);
 		base.removeView(serverDetails);
+
 		Dictionary dictionary = new Dictionary();
+
 		AssetManager assetManager = this.getAssets();
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(
@@ -121,57 +122,50 @@ public class BoardActivity extends ActionBarActivity {
 		}
 
 		boardInstance = new Crossword(WIDTH, HEIGHT, dictionary, this);
-		final GridAdapter ga = new GridAdapter(this);
-		new AsyncTask<Void, Void, Void>() {
+		boardInstance.generate();
 
-			@Override
-			protected Void doInBackground(Void... v) {
-				boardInstance.generate();
-				tileArray = boardInstance.flatten();
-				ArrayList<Tile> strings = new ArrayList<Tile>();
-				for (int i = 0; i < tileArray.size(); i++) {
-					Tile t;
-					try {
-						Button b = (Button) tileArray.get(i).getView();
-						t = new Tile(b.getText().toString().charAt(0));
-					} catch (Exception e) {
-						t = new Tile('-');
-					}
-					strings.add(t);
-				}
-				// while (strings.size() < 169)strings.add(new Tile('M'));
-
-				int boardHeight = getBoardHeight();
-				GridView gv = (GridView) findViewById(R.id.gridView);
-				ViewGroup.LayoutParams lp = gv.getLayoutParams();
-				lp.height = boardHeight;
-				lp.width = boardHeight;
-				gv.setLayoutParams(lp);
-				ga.setItems(strings);
-				ga.setViewSize(boardHeight / 13);
-				gv.setAdapter(ga);
-				return null;
-			}
-		}.execute();
-		/*int boardHeight = getBoardHeight();
+		ArrayList<IntTile> tileArray = boardInstance.flatten();
 		ArrayList<Tile> strings = new ArrayList<Tile>();
-		while(strings.size() < 169) strings.add(new Tile('M'));
+
+		Tile t;
+
+		for (int i = 0; i < tileArray.size(); i++) {
+			try {
+				Button b = (Button) tileArray.get(i).getView();
+				t = new Tile(b.getText().toString().charAt(0));
+			} catch (Exception e) {
+				t = new Tile('-');
+			}
+			strings.add(t);
+		}
+
+		// while (strings.size() < 169)strings.add(new Tile('M'));
+
+		int boardHeight = getBoardHeight();
 		GridView gv = (GridView) findViewById(R.id.gridView);
 		ViewGroup.LayoutParams lp = gv.getLayoutParams();
 		lp.height = boardHeight;
 		lp.width = boardHeight;
 		gv.setLayoutParams(lp);
-		ga.setItems(strings);
-		ga.setViewSize(boardHeight / 13);
-		gv.setAdapter(ga);
-		*/
+		// while(strings.size() < 169) strings.add(new Tile('M'));
+		gv.setAdapter(new GridAdapter(strings, boardHeight / 13, this));
+
+		/*
+		 * int boardHeight = getBoardHeight(); ArrayList<Tile> strings = new
+		 * ArrayList<Tile>(); while(strings.size() < 169) strings.add(new
+		 * Tile('M')); GridView gv = (GridView) findViewById(R.id.gridView);
+		 * ViewGroup.LayoutParams lp = gv.getLayoutParams(); lp.height =
+		 * boardHeight; lp.width = boardHeight; gv.setLayoutParams(lp);
+		 * ga.setItems(strings); ga.setViewSize(boardHeight / 13);
+		 * gv.setAdapter(ga);
+		 */
 	}
 
 	private int getBoardHeight() {
 		int h;
 		Display display = getWindowManager().getDefaultDisplay();
 		h = display.getHeight(); // gets actual usable height
-		h -= 20; // subtract 20 to get a boarder of 10 on each side
+		h -= 40; // subtract 20 to get a boarder of 10 on each side
 		return h;
 	}
 
@@ -237,18 +231,23 @@ public class BoardActivity extends ActionBarActivity {
 
 	private final class GridAdapter extends BaseAdapter {
 
-		 ArrayList<Tile> mItems;
-		 int mCount;
-		 Context mContext;
-		 int vSize;
+		ArrayList<Tile> mItems;
+		int mCount;
+		Context mContext;
+		int vSize;
 
-		private GridAdapter(Context c) {
+		private GridAdapter(ArrayList<Tile> item, int size, Context c) {
+			mItems = item;
+			mCount = item.size();
+			vSize = size;
 			mContext = c;
 		}
-		public void setViewSize(int i){
+
+		public void setViewSize(int i) {
 			vSize = i;
 		}
-		public void setItems(ArrayList<Tile> items){
+
+		public void setItems(ArrayList<Tile> items) {
 			mItems = items;
 			mCount = items.size();
 		}

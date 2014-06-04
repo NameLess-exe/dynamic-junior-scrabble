@@ -1,9 +1,4 @@
-<<<<<<< HEAD:src/scrabble/rabble/Model/Player.java
-package scrabble.rabble.Model;
-
-=======
 package scrabble.rabble.model;
->>>>>>> FETCH_HEAD:src/scrabble/rabble/model/Player.java
 import java.util.ArrayList;
 
 public class Player extends Sendable {
@@ -32,7 +27,6 @@ public class Player extends Sendable {
 	}
 
 	// Set the player name
-<<<<<<< HEAD:src/scrabble/rabble/Model/Player.java
 	public void setName(String s) {
 		name = s;
 	}
@@ -150,109 +144,6 @@ public class Player extends Sendable {
 	 * tiles.set(i, newTiles.get(counter)); counter++; } }
 	 * System.out.println("DONE"); }
 	 */
-=======
-    public void setName(String s){
-        name = s;
-    }
-    
-    // Get the player name
-    public String getName(){
-        return name;
-    }
-    
-    // Set the player identifier
-    public void setIdentifier(int i){
-        identifier = i;
-    }
-    
-    // Get the player identifier
-    public int getIdentifier(){
-        return identifier;
-    }
-    
-    // Set the player age
-    public void setAge(int i){
-        age = i;
-    }
-    
-    // Get the player age
-    public int getAge(){
-        return age;
-    }
-    
-    // Set the player age
-    public void setPoints(int i){
-        points = i;
-    }
-    
-    // Get the player age
-    public int getPoints(){
-        return points;
-    }
-    
-    public void setTurn(boolean b){
-        isTurn = b;
-    }
-    
-    public boolean getTurn(){
-        return isTurn;
-    }
-    
-    public ArrayList<Tile> getTiles(){
-        return tiles;
-    }
-    public void setTiles(ArrayList<Tile> t){
-    	tiles = t;
-    }
-    
-    // dump all the tiles in the player
-    public void showTiles(){
-        String temp = "Tiles: ";
-        System.out.println("_________________");
-        System.out.println("Name     = " + name);
-        System.out.println("Age      = " + age);
-        System.out.println("Identity = " + identifier);
-        System.out.println("Points   = " + points);
-        System.out.println("isTurn   = " + isTurn);
-        for (int i = 0; i < tiles.size(); i++) temp += tiles.get(i).getValue() + ", ";
-        System.out.println(temp);
-        System.out.println("_________________");
-    }
-    
-    public void removeTile(Tile t){
-        for (int i = 0; i < tiles.size();i++){
-            Tile temp = tiles.get(i);
-            if(temp.getValue() == t.getValue()) tiles.remove(i);
-            return;
-        }
-    }
-    
-    public void addTile (Tile t){
-        tiles.add(t);
-    }
-    
-    // remove elements in s[], replace with ns[]
-    public void replace(ArrayList<Tile> playedTiles, ArrayList<Tile> newTiles){
-        ArrayList<Tile> temp = new ArrayList<Tile>();
-        boolean b = false;
-        for (int i = 0; i < tiles.size(); i++){
-            
-            b = false;
-            for(int x = 0; x < playedTiles.size();x++){
-                if (tiles.get(i) == playedTiles.get(x)){
-                    playedTiles.remove(x);
-                    b = true;
-                    break;
-                }
-            }
-            if (b == false) temp.add(tiles.get(i));
-            
-        }
-        for (int i = 0; i < newTiles.size(); i++) temp.add(newTiles.get(i));
-        tiles = temp;
-    }
-    
-
     /*
     // remove elements in s[], replace with ns[]
     public void replace(ArrayList<Tile> playedTiles, ArrayList<Tile> newTiles){
@@ -268,5 +159,4 @@ public class Player extends Sendable {
         System.out.println("DONE");
     }
     */
->>>>>>> FETCH_HEAD:src/scrabble/rabble/model/Player.java
 }
