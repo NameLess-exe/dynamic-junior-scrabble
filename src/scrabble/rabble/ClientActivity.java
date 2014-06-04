@@ -21,16 +21,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class ClientActivity extends ActionBarActivity {
-	RelativeLayout client; // screen with main UI
+	LinearLayout client; // screen with main UI
 	RelativeLayout details; // screen with UI for getting player details
 	FrameLayout baseLayout;
 	Player myPlayer;
 	TilePool tempTilePool;
+	boolean canPress = true;
 
 	// ////////// TEST \\\\\\\\\\\\
 	PlayerList alp;
@@ -61,12 +63,27 @@ public class ClientActivity extends ActionBarActivity {
 		};
 		tempTilePool = new TilePool(words);
 		baseLayout = (FrameLayout) findViewById(R.id.container);
-		client = (RelativeLayout) findViewById(R.id.layout_client_screen);
+		client = (LinearLayout) findViewById(R.id.layout_client_screen);
 		details = (RelativeLayout) findViewById(R.id.layout_getPlayer);
 		baseLayout.removeView(client); // Sets the UI to the first screen
+
+		patchView("player_avatar", 9, 35);
+		// IMPORTANT///// int i = getResources().getIdentifier("player_avatar",
+		// "id", "scrabble.rabble");
 		Player temp = new Player();
 		temp.setIdentifier(25);
 		dispatch((Sendable) temp);
+	}
+
+	public void patchView(String id, int numViews, int dimensions) {
+		for (int i = 0; i < numViews; i++) {
+			View v = (View) findViewById(getResources().getIdentifier(
+					id + Integer.toString(i + 1), "id", "scrabble.rabble"));
+			ViewGroup.LayoutParams lp = v.getLayoutParams();
+			lp.width = dimensions;
+			lp.height = dimensions;
+			v.setLayoutParams(lp);
+		}
 	}
 
 	@Override
@@ -163,6 +180,11 @@ public class ClientActivity extends ActionBarActivity {
 							"scrabble.rabble")));
 			temp--;
 		}
+		patchView("textView_tile", 5, 90);
+		patchView("textView_P1T", 5, 60);
+		patchView("textView_P2T", 5, 60);
+		patchView("textView_P3T", 5, 60);
+		patchView("avatar", 3, 70);
 	}
 
 	public void updateUi(PlayerList playerList) {
@@ -177,13 +199,16 @@ public class ClientActivity extends ActionBarActivity {
 		// Change the colour of the player's layout if it is their turn
 		TextView temp = (TextView) findViewById(R.id.textView_myTurn);
 		RelativeLayout layout = (RelativeLayout) findViewById(R.id.player_1);
+		String playerColour;
 		if (myPlayer.getTurn() == true) {
 			temp.setText(R.string.text_my_turn);
-			layout.setBackgroundColor(Color.parseColor("#FFFF00")); // Yellow
+			playerColour = "#FFFF00";
 		} else {
 			temp.setText(R.string.text_not_my_turn);
-			layout.setBackgroundColor(Color.parseColor("#99CCFF")); // Blue
+			playerColour = "#99CCFF";
 		}
+
+		layout.setBackgroundColor(Color.parseColor(playerColour)); // Yellow
 		temp = (TextView) findViewById(R.id.textView_myScore);
 		temp.setText("Score: " + myPlayer.getPoints());
 		ArrayList<Tile> playerTiles = myPlayer.getTiles();
@@ -193,6 +218,7 @@ public class ClientActivity extends ActionBarActivity {
 					"textView_tile" + Integer.toString(i + 1), "id",
 					"scrabble.rabble"));
 			tv.setText(" ");
+			tv.setBackgroundColor(Color.parseColor(playerColour));
 		}
 		// Set the textViews to display the new tiles
 		for (int i = 0; i < playerTiles.size(); i++) {
@@ -200,6 +226,7 @@ public class ClientActivity extends ActionBarActivity {
 					"textView_tile" + Integer.toString(i + 1), "id",
 					"scrabble.rabble"));
 			tv.setText(Character.toString(playerTiles.get(i).getValue()));
+			tv.setBackgroundResource(R.drawable.wood_tile);
 		}
 		// Update the other players
 		for (int i = 0; i < playerList.size(); i++) {
@@ -265,30 +292,37 @@ public class ClientActivity extends ActionBarActivity {
 	}
 
 	public void tilePressed(View view) {
-		if (myPlayer.getTurn() == false)
-			return;
-		TextView temp = (TextView) view;
-		boolean valid = true;
-		int i = 0;
-		while(valid == true){
-			if (temp.getId() == getResources().getIdentifier(
-					"textView_tile" + Integer.toString(i + 1), "id",
-					"scrabble.rabble")) {
-				// temp.setBackgroundColor(Color.parseColor("#0000FF"));
+		if (canPress == true) {
+			canPress = false;
+			if (myPlayer.getTurn() == false)
+				return;
+			TextView temp = (TextView) view;
+			boolean valid = true;
+			int i = 0;
+			while (valid == true) {
+				if (temp.getId() == getResources().getIdentifier(
+						"textView_tile" + Integer.toString(i + 1), "id",
+						"scrabble.rabble")) {
+					// temp.setBackgroundColor(Color.parseColor("#0000FF"));
 
-				// network.send((Sendable) myPlayer.getTiles().get(i));
+					// network.send((Sendable) myPlayer.getTiles().get(i));
 
-				myPlayer.removeTile(myPlayer.getTiles().get(i));
-				myPlayer.showTiles();
-				myPlayer.setTurn(false);
-				alp.addPlayer(myPlayer);
-				alp.get(0).setTurn(true);
-				valid = false;
+					myPlayer.removeTile(myPlayer.getTiles().get(i), i);
+					if (myPlayer.getTiles().size() == 0) {
+						myPlayer.setTurn(false);
+						alp.get(0).setTurn(true);
+						alp.get(0).getTiles().remove(0);
+					}
+					alp.addPlayer(myPlayer);
+					valid = false;
+				}
+				i++;
+				if (i > myPlayer.getTiles().size())
+					valid = false;
 			}
-			i++;
-			if (i>myPlayer.getTiles().size()) valid = false;
+			dispatch((Sendable) alp);
+			canPress = true;
 		}
-		dispatch((Sendable) alp);
 	}
 
 	public void dispatch(Sendable o) {

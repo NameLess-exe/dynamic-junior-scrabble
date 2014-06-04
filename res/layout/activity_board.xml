@@ -1,0 +1,330 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="scrabble.rabble.BoardActivity"
+    tools:ignore="MergeRootFrame" >
+
+    <RelativeLayout
+        android:id="@+id/server_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <TextView
+            android:id="@+id/textView_gameName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/editText_gameName"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/editText_gameName"
+            android:text="@string/text_gameName" />
+
+        <TextView
+            android:id="@+id/textView_gameAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView_gameName"
+            android:layout_below="@+id/editText_maxPlayer"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:text="@string/text_gameAvatar" />
+
+        <TextView
+            android:id="@+id/textView_numPlayers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView_gameName"
+            android:layout_alignTop="@+id/editText_maxPlayer"
+            android:layout_marginTop="10dp"
+            android:text="@string/text_numPlayers" />
+
+        <EditText
+            android:id="@+id/editText_gameName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/hint_name" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/editText_maxPlayer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/button_createGame"
+            android:layout_alignRight="@+id/editText_gameName"
+            android:layout_below="@+id/editText_gameName"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/hint_numPlayers" />
+
+        <LinearLayout
+            android:id="@+id/layout_avatars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView_gameName"
+            android:layout_alignRight="@+id/editText_gameName"
+            android:layout_alignTop="@+id/textView_gameAvatar"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/server_avatar1"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="#0066CC"
+                android:clickable="true"
+                android:onClick="setServerAvatar" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/server_avatar2"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="#0066CC"
+                android:clickable="true"
+                android:onClick="setServerAvatar" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/server_avatar3"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="#0066CC"
+                android:clickable="true"
+                android:onClick="setServerAvatar" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="1dp" />
+
+            <TextView
+                android:id="@+id/server_avatar4"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="#0066CC"
+                android:clickable="true"
+                android:onClick="setServerAvatar" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_createGame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_avatars"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:onClick="createGame"
+            android:text="@string/button_createGame" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/board_interface"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/board_players"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/temp_player"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/text_players"
+                android:textSize="30sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <RelativeLayout
+                android:id="@+id/server_player1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/display_avatar1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="#0066CC" />
+
+                <TextView
+                    android:id="@+id/display_name1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/display_avatar1"
+                    android:text="Name1"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/display_score1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/display_avatar1"
+                    android:layout_alignLeft="@+id/display_name1"
+                    android:text="Score: 1"
+                    android:textSize="25sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <RelativeLayout
+                android:id="@+id/server_player2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/display_avatar2"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="#0066CC" />
+
+                <TextView
+                    android:id="@+id/display_name2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/display_avatar2"
+                    android:text="Name2"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/display_score2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/display_avatar2"
+                    android:layout_alignLeft="@+id/display_name2"
+                    android:text="Score: 2"
+                    android:textSize="25sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <RelativeLayout
+                android:id="@+id/server_player3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/display_avatar3"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="#0066CC" />
+
+                <TextView
+                    android:id="@+id/display_name3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/display_avatar3"
+                    android:text="Name3"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/display_score3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/display_avatar3"
+                    android:layout_alignLeft="@+id/display_name3"
+                    android:text="Score: 3"
+                    android:textSize="25sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <RelativeLayout
+                android:id="@+id/server_player4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" >
+
+                <TextView
+                    android:id="@+id/display_avatar4"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:background="#0066CC" />
+
+                <TextView
+                    android:id="@+id/display_name4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/display_avatar4"
+                    android:text="Name4"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/display_score4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/display_avatar4"
+                    android:layout_alignLeft="@+id/display_name4"
+                    android:text="Score: 4"
+                    android:textSize="25sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@+id/board_players"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <GridView
+                android:id="@+id/gridView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:numColumns="13" >
+            </GridView>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

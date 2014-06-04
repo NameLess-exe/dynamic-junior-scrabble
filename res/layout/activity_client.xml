@@ -11,14 +11,15 @@
     <RelativeLayout
         android:id="@+id/layout_getPlayer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
         <TextView
             android:id="@+id/textView_Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="110dp"
-            android:layout_marginTop="50dp"
+            android:layout_alignTop="@+id/editText_Name"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/editText_Name"
             android:text="@string/text_name" />
 
         <TextView
@@ -26,9 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView_Name"
-            android:layout_below="@+id/textView_Name"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="20dp"
+            android:layout_alignTop="@+id/editText_Age"
+            android:layout_marginTop="10dp"
             android:text="@string/text_age" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView_Name"
-            android:layout_below="@+id/textView_Age"
+            android:layout_below="@+id/editText_Age"
             android:layout_centerVertical="true"
             android:layout_marginTop="20dp"
             android:text="@string/text_playerAvatar" />
@@ -45,15 +45,25 @@
             android:id="@+id/editText_Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView_Name"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@+id/textView_Name"
+            android:layout_marginTop="20dp"
             android:ems="10"
             android:hint="@string/hint_name" >
 
             <requestFocus />
         </EditText>
+
+        <EditText
+            android:id="@+id/editText_Age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editText_Name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="@string/hint_age" />
 
         <LinearLayout
             android:id="@+id/layout_playerAvatars"
@@ -71,7 +81,7 @@
                 android:id="@+id/player_avatar1"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="#555555"
                 android:clickable="true"
                 android:onClick="setAvatar" />
 
@@ -84,7 +94,7 @@
                 android:id="@+id/player_avatar2"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="#555555"
                 android:clickable="true"
                 android:onClick="setAvatar" />
 
@@ -97,7 +107,7 @@
                 android:id="@+id/player_avatar3"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="#555555"
                 android:clickable="true"
                 android:onClick="setAvatar" />
 
@@ -110,7 +120,7 @@
                 android:id="@+id/player_avatar4"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="#555555"
                 android:clickable="true"
                 android:onClick="setAvatar" />
 
@@ -123,7 +133,7 @@
                 android:id="@+id/player_avatar5"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="#555555"
                 android:clickable="true"
                 android:onClick="setAvatar" />
 
@@ -136,7 +146,7 @@
                 android:id="@+id/player_avatar6"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="#555555"
                 android:clickable="true"
                 android:onClick="setAvatar" />
 
@@ -149,7 +159,7 @@
                 android:id="@+id/player_avatar7"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="#555555"
                 android:clickable="true"
                 android:onClick="setAvatar" />
 
@@ -162,7 +172,7 @@
                 android:id="@+id/player_avatar8"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="#555555"
                 android:clickable="true"
                 android:onClick="setAvatar" />
 
@@ -175,51 +185,45 @@
                 android:id="@+id/player_avatar9"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="#555555"
                 android:clickable="true"
                 android:onClick="setAvatar" />
         </LinearLayout>
-
-        <EditText
-            android:id="@+id/editText_Age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/textView_Age"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@+id/textView_Name"
-            android:ems="10"
-            android:hint="@string/hint_age" />
 
         <Button
             android:id="@+id/button_joinGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/textView_Age"
             android:layout_below="@+id/layout_playerAvatars"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:onClick="joinGame"
             android:text="@string/button_joinGame" />
     </RelativeLayout>
+
     <!-- layout for the main client screen -->
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/layout_client_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#99CCFF" >
+        android:background="#99CCFF"
+        android:orientation="vertical" >
 
+        <!--
         <View
             android:id="@+id/fakeView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_centerInParent="true" />
+        -->
         <!-- View in the centre of the screen, used for breaking the screen in half -->
 
         <RelativeLayout
             android:id="@+id/player_1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="0dp"
+            android:layout_weight="1.5" >
 
             <TextView
                 android:id="@+id/textView_myName"
@@ -246,7 +250,7 @@
             <LinearLayout
                 android:id="@+id/layout_myTiles"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="90dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/textView_myTurn"
@@ -264,6 +268,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:background="@drawable/wood_tile"
                     android:clickable="true"
                     android:gravity="center"
                     android:onClick="tilePressed"
@@ -281,6 +286,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
+                    android:background="@drawable/wood_tile"
                     android:clickable="true"
                     android:gravity="center"
                     android:onClick="tilePressed"
@@ -298,6 +304,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
+                    android:background="@drawable/wood_tile"
                     android:clickable="true"
                     android:gravity="center"
                     android:onClick="tilePressed"
@@ -315,6 +322,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
+                    android:background="@drawable/wood_tile"
                     android:clickable="true"
                     android:gravity="center"
                     android:onClick="tilePressed"
@@ -332,6 +340,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
+                    android:background="@drawable/wood_tile"
                     android:clickable="true"
                     android:gravity="center"
                     android:onClick="tilePressed"
@@ -359,267 +368,351 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/player_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/fakeView"
-            android:layout_below="@+id/player_1" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
 
-            <TextView
-                android:id="@+id/avatar1"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/player_2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/ic_launcher" />
+                android:layout_weight="1" >
 
-            <TextView
-                android:id="@+id/textView_P1Name"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/avatar1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/textView_P1Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/avatar1" />
+
+                <TextView
+                    android:id="@+id/textView_P1Score"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp" />
+
+                <LinearLayout
+                    android:id="@+id/layout_player1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/textView_P1Name"
+                    android:layout_toRightOf="@id/avatar1"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/textView_P1T1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textView_P1T2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textView_P1T3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textView_P1T4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textView_P1T5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/player_3"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/avatar1" />
+                android:layout_weight="1" >
 
-            <TextView
-                android:id="@+id/textView_P1Score"
-                android:layout_width="100dp"
+                <TextView
+                    android:id="@+id/avatar2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/textView_P2Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/avatar2" />
+
+                <TextView
+                    android:id="@+id/textView_P2Score"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp" />
+
+                <LinearLayout
+                    android:id="@+id/layout_player2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/textView_P2Name"
+                    android:layout_toRightOf="@id/avatar2"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/textView_P2T1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textView_P2T2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textView_P2T3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textView_P2T4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/textView_P2T5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:id="@+id/player_4"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp" />
-
-            <LinearLayout
-                android:id="@+id/layout_player1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/textView_P1Name"
-                android:layout_toRightOf="@id/avatar1"
-                android:orientation="horizontal" >
+                android:layout_weight="1" >
 
                 <TextView
-                    android:id="@+id/textView_P1T1"
-                    android:layout_width="0dp"
+                    android:id="@+id/avatar3"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/ic_launcher" />
 
                 <TextView
-                    android:id="@+id/textView_P1T2"
-                    android:layout_width="0dp"
+                    android:id="@+id/textView_P3Name"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/avatar3" />
 
                 <TextView
-                    android:id="@+id/textView_P1T3"
-                    android:layout_width="0dp"
+                    android:id="@+id/textView_P3Score"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="10dp" />
 
-                <TextView
-                    android:id="@+id/textView_P1T4"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/layout_player3"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/textView_P3Name"
+                    android:layout_toRightOf="@id/avatar3"
+                    android:orientation="horizontal" >
 
-                <TextView
-                    android:id="@+id/textView_P1T5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/textView_P3T1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
 
-        <RelativeLayout
-            android:id="@+id/player_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/fakeView"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/player_1"
-            android:layout_marginBottom="10dp" >
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/avatar2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/ic_launcher" />
+                    <TextView
+                        android:id="@+id/textView_P3T2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView_P2Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/avatar2" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
-            <TextView
-                android:id="@+id/textView_P2Score"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp" />
+                    <TextView
+                        android:id="@+id/textView_P3T3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
 
-            <LinearLayout
-                android:id="@+id/layout_player2"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/textView_P2Name"
-                android:layout_toRightOf="@id/avatar2"
-                android:orientation="horizontal" >
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
-                <TextView
-                    android:id="@+id/textView_P2T1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/textView_P3T4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textView_P2T2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
-                <TextView
-                    android:id="@+id/textView_P2T3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/textView_P3T5"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:background="@drawable/wood_tile"
+                        android:gravity="center"
+                        android:textSize="32sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/textView_P2T4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView_P2T5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/player_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignRight="@+id/fakeView"
-            android:layout_below="@+id/player_2" >
-
-            <TextView
-                android:id="@+id/avatar3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/ic_launcher" />
-
-            <TextView
-                android:id="@+id/textView_P3Name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/avatar3" />
-
-            <TextView
-                android:id="@+id/textView_P3Score"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="10dp" />
-
-            <LinearLayout
-                android:id="@+id/layout_player3"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/textView_P3Name"
-                android:layout_toRightOf="@id/avatar3"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:id="@+id/textView_P3T1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView_P3T2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView_P3T3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView_P3T4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView_P3T5"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:gravity="center"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </RelativeLayout>
-    </RelativeLayout>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
 
 </FrameLayout>

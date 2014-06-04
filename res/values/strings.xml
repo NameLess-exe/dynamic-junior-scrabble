@@ -15,12 +15,13 @@
     <string name="text_my_turn">It is currently your turn!</string>
     <string name="text_not_my_turn">It is not your turn!</string>
     <string name="title_activity_create_game">CreateGameActivity</string>
-    <string name="hello_world">Hello world!</string>
     <string name="text_gameName">Game name:</string>
     <string name="text_gameAvatar">Game avatar:</string>
     <string name="text_playerAvatar">Player avatar:</string>
 	<string name="text_numPlayers">Number of players:</string>
     <string name="hint_gameName">Enter a game name</string>
     <string name="select_server">Select a server to join or create a new one:</string>
+    <string name="hint_numPlayers">Max 4</string>
+    <string name="text_players">Players:</string>
     
 </resources>

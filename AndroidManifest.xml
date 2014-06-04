@@ -16,7 +16,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/NoActionBar" >
         <activity
             android:name="scrabble.rabble.MainActivity"
             android:label="@string/app_name"
@@ -33,7 +33,7 @@
             android:screenOrientation="landscape" >
         </activity>
         <activity
-            android:name="scrabble.rabble.CreateGameActivity"
+            android:name="scrabble.rabble.BoardActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape" >
         </activity>

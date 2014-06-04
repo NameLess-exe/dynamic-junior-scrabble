@@ -112,7 +112,7 @@ public class MainActivity extends ActionBarActivity {
 	 }
 	 
 	 public void createGame(View view){
-		Intent intent = new Intent(this, CreateGameActivity.class);
+		Intent intent = new Intent(this, BoardActivity.class);
 		startActivity(intent);
 	 }
 }
