@@ -10,6 +10,7 @@ import scrabble.rabble.model.TilePool;
 import scrabble.rabble.model.Type;
 import android.content.Context;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -32,6 +33,7 @@ public class ClientActivity extends ActionBarActivity {
 	FrameLayout baseLayout;
 	Player myPlayer;
 	TilePool tempTilePool;
+	MediaPlayer player;
 	boolean canPress = true;
 
 	// ////////// TEST \\\\\\\\\\\\
@@ -49,6 +51,7 @@ public class ClientActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		        
 		EditText nameText = (EditText) findViewById(R.id.editText_Name);
 		EditText ageText = (EditText) findViewById(R.id.editText_Age);
 		nameText.setText("Matt");
@@ -73,6 +76,12 @@ public class ClientActivity extends ActionBarActivity {
 		Player temp = new Player();
 		temp.setIdentifier(25);
 		dispatch((Sendable) temp);
+		
+		//plays the theme song of my life
+		player = MediaPlayer.create(this, R.raw.wallpaper);
+		player.setLooping(true); // Set looping
+		player.setVolume(100,100);
+		player.start();
 	}
 
 	public void patchView(String id, int numViews, int dimensions) {
@@ -225,7 +234,7 @@ public class ClientActivity extends ActionBarActivity {
 					"textView_tile" + Integer.toString(i + 1), "id",
 					"scrabble.rabble"));
 			tv.setText(Character.toString(playerTiles.get(i).getValue()));
-			tv.setBackgroundResource(R.drawable.wood_tile);
+			tv.setBackgroundColor(Color.parseColor("#5DBCD2")); //sets a tile colour, as opposed to the wood 9-patch
 		}
 		// Update the other players
 		for (int i = 0; i < playerList.size(); i++) {
@@ -333,6 +342,20 @@ public class ClientActivity extends ActionBarActivity {
 					"Object passed was not an ArrayList<Player>");
 		}
 	}
+	
+	@Override
+	public void onPause() {
+		 super.onPause();
+		 //pauses the epic beats
+		 player.pause();
+	 }
+	 
+	@Override
+	 public void onResume() {
+		 super.onResume();
+		 //resumes the beats
+		 player.start();
+	 }
 }
 
 // client = (RelativeLayout)

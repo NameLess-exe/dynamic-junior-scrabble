@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -50,6 +51,7 @@ public class BoardActivity extends ActionBarActivity {
 	FrameLayout base;
 	RelativeLayout board;
 	RelativeLayout serverDetails;
+	MediaPlayer player;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +66,23 @@ public class BoardActivity extends ActionBarActivity {
 		board = (RelativeLayout) findViewById(R.id.board_interface);
 		serverDetails = (RelativeLayout) findViewById(R.id.server_details);
 		base.removeView(board);
+		
+		//plays the theme song of my life
+		player = MediaPlayer.create(this, R.raw.wallpaper);
+		player.setLooping(true); // Set looping
+		player.setVolume(100,100);
+		player.start();
+		
+        //Text view sound stuff
+		//final MediaPlayer mp2 = MediaPlayer.create(getApplicationContext(), R.raw.button2);
+		//TextView textView = (TextView)findViewById(R.id.textView1);
+		//textView.setOnClickListener(new View.OnClickListener(){
+			
+			//@Override
+			//public void onClick(View v) {
+				// TODO Auto-generated method stub
+				//mp.start();
+			//}
 
 	}
 
@@ -290,4 +309,18 @@ public class BoardActivity extends ActionBarActivity {
 		textView.setText(String.valueOf(t.getValue()));
 		return textView;
 	}
+	
+	@Override
+	public void onPause() {
+		 super.onPause();
+		 //pauses the epic beats
+		 player.pause();
+	 }
+	 
+	@Override
+	 public void onResume() {
+		 super.onResume();
+		 //resumes the beats
+		 player.start();
+	 }
 }
