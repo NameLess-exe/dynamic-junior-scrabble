@@ -29,6 +29,7 @@ public class MainActivity extends ActionBarActivity {
 			getSupportFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
 		// get an ArrayList<string> of servers
 		///////////////// TEST \\\\\\\\\\\\\\\\\\\\\
 		servers = new ArrayList<String>();

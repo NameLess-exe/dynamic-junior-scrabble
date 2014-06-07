@@ -150,10 +150,10 @@ public class ClientActivity extends ActionBarActivity {
 			p1.setTiles(tempTilePool.getTiles(5));
 			Player p2 = new Player();
 			p2.setName("Jojo");
-			p2.setTiles(tempTilePool.getTiles(5));
+			p2.setTiles(tempTilePool.getTiles(3));
 			Player p3 = new Player();
 			p3.setName("Leo");
-			p3.setTiles(tempTilePool.getTiles(5));
+			p3.setTiles(tempTilePool.getTiles(4));
 			alp = new PlayerList();
 			alp.addPlayer(p1);
 			alp.addPlayer(myPlayer);
@@ -234,9 +234,10 @@ public class ClientActivity extends ActionBarActivity {
 							"scrabble.rabble"));
 			// Set the colour/background if it their turn
 			if (playerList.get(i).getTurn() == true) {
-				layout.setBackgroundColor(Color.parseColor("#FFFF00")); // Yellow
+				playerColour = "#FFFF00";
 			} else
-				layout.setBackgroundColor(Color.parseColor("#99CCFF"));// Blue
+				playerColour = "#99CCFF";
+			layout.setBackgroundColor(Color.parseColor(playerColour)); // Yellow
 
 			temp = (TextView) findViewById(getResources().getIdentifier(
 					"textView_P" + Integer.toString(i + 1) + "Name", "id",
@@ -249,6 +250,17 @@ public class ClientActivity extends ActionBarActivity {
 			temp.setText("Score: "
 					+ Integer.toString(playerList.get(i).getPoints()));
 			playerTiles = playerList.get(i).getTiles();
+
+			// Reset the textViews holding each tile
+			for (int x = 0; x < 5; x++) {
+				TextView tv = (TextView) findViewById(getResources()
+						.getIdentifier(
+								"textView_P" + Integer.toString(i + 1) + "T"
+										+ Integer.toString(x + 1), "id",
+								getPackageName()));
+				tv.setBackgroundColor(Color.parseColor(playerColour));//Character.toString(playerTiles.get(x).getValue()));
+			}
+
 			for (int x = 0; x < playerTiles.size(); x++) {
 				TextView tv = (TextView) findViewById(getResources()
 						.getIdentifier(
@@ -256,6 +268,7 @@ public class ClientActivity extends ActionBarActivity {
 										+ Integer.toString(x + 1), "id",
 								getPackageName()));
 				tv.setText(Character.toString(playerTiles.get(x).getValue()));
+				tv.setBackgroundResource(R.drawable.wood_tile);
 			}
 		}
 	}
@@ -300,13 +313,18 @@ public class ClientActivity extends ActionBarActivity {
 			if (temp.getId() == getResources().getIdentifier(
 					"textView_tile" + Integer.toString(i + 1), "id",
 					"scrabble.rabble")) {
-				// temp.setBackgroundColor(Color.parseColor("#0000FF"));
-
-				// network.send((Sendable) myPlayer.getTiles().get(i));
-
-				myPlayer.removeTile(myPlayer.getTiles().get(i), i);
+				///////////////SEND TO SERVER\\\\\\\\\\\\\\\\\\\\\\\\
+				Tile t = myPlayer.getTiles().get(i);
+				t.setIndex(i);
+			
+				// network.send((Sendable) t);
+				//////////////////////////////////////////////////////
+				myPlayer.removeTile(t, t.getIndex());
 				alp.addPlayer(myPlayer);
-				alp.get(0).setTurn(true);
+				if (myPlayer.getTiles().size() == 0) {
+					alp.get(0).setTurn(true);
+					myPlayer.setTurn(false);
+				}
 				valid = false;
 			}
 			i++;

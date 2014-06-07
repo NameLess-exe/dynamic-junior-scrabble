@@ -27,20 +27,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class BoardActivity extends ActionBarActivity {
 
 	private int WIDTH = 13;
 	private int HEIGHT = 13;
 	private Crossword boardInstance;
+	PlayerList alp;
 	String serverName;
 	int maxPlayers;
 	int currentPlayers;
@@ -108,6 +112,27 @@ public class BoardActivity extends ActionBarActivity {
 		base.addView(board);
 		base.removeView(serverDetails);
 
+		// //////////// TEST \\\\\\\\\\\\\\\\
+		Player myPlayer = new Player();
+		myPlayer.setPoints(1);
+		Player p1 = new Player();
+		p1.setName("Tom");
+		p1.setPoints(5);
+		Player p2 = new Player();
+		p2.setName("Jojo");
+		p2.setPoints(4);
+		Player p3 = new Player();
+		p3.setName("Leo");
+		p3.setPoints(3);
+		alp = new PlayerList();
+		alp.addPlayer(p1);
+		alp.addPlayer(myPlayer);
+		alp.addPlayer(p2);
+		alp.addPlayer(p3);
+		// //////////////\\\\\\\\\\\\\\\\\\\\\
+		removeExtraPlayers(maxPlayers);
+		updatePlayers(alp);
+
 		Dictionary dictionary = new Dictionary();
 
 		AssetManager assetManager = this.getAssets();
@@ -144,21 +169,32 @@ public class BoardActivity extends ActionBarActivity {
 		int boardHeight = getBoardHeight();
 		GridView gv = (GridView) findViewById(R.id.gridView);
 		ViewGroup.LayoutParams lp = gv.getLayoutParams();
+
 		lp.height = boardHeight;
 		lp.width = boardHeight;
 		gv.setLayoutParams(lp);
+
 		// while(strings.size() < 169) strings.add(new Tile('M'));
 		gv.setAdapter(new GridAdapter(strings, boardHeight / 13, this));
 
-		/*
-		 * int boardHeight = getBoardHeight(); ArrayList<Tile> strings = new
-		 * ArrayList<Tile>(); while(strings.size() < 169) strings.add(new
-		 * Tile('M')); GridView gv = (GridView) findViewById(R.id.gridView);
-		 * ViewGroup.LayoutParams lp = gv.getLayoutParams(); lp.height =
-		 * boardHeight; lp.width = boardHeight; gv.setLayoutParams(lp);
-		 * ga.setItems(strings); ga.setViewSize(boardHeight / 13);
-		 * gv.setAdapter(ga);
-		 */
+		gv.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> a, View v, int position,
+					long id) {
+				TextView tv = (TextView) v;
+				Tile t = new Tile(tv.getText().toString().charAt(0));
+
+				// /////////SEND TILE TO THE SERVER\\\\\\\\\\\\\\\\
+				Context context = getApplicationContext();
+
+				int duration = Toast.LENGTH_LONG;
+				Toast toast = Toast.makeText(context,
+						Character.toString(t.getValue()), duration);
+				toast.show();
+				// /////////////////////////////////////////////////
+			}
+		});
+
 	}
 
 	private int getBoardHeight() {
@@ -189,7 +225,7 @@ public class BoardActivity extends ActionBarActivity {
 		}
 		if (text != "") {
 			Context context = getApplicationContext();
-			int duration = Toast.LENGTH_LONG;
+			int duration = Toast.LENGTH_SHORT;
 			Toast toast = Toast.makeText(context, text, duration);
 			toast.show();
 		}
@@ -278,16 +314,54 @@ public class BoardActivity extends ActionBarActivity {
 			} else {
 				textView = (TextView) convertView;
 			}
-			textView.setText(Character
-					.toString(mItems.get(position).getValue()));
+
+			String s;
+			if (mItems.get(position).getValue() == '-') {
+				s = "";
+				textView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+			} else {
+				s = Character.toString(mItems.get(position).getValue());
+				textView.setText(s);
+			}
 			return textView;
 		}
 	}
 
-	private TextView createView(Tile t) {
-		TextView textView = (TextView) LayoutInflater.from(this).inflate(
-				R.layout.view, null);
-		textView.setText(String.valueOf(t.getValue()));
-		return textView;
+	private void removeExtraPlayers(int size) {
+		int temp = 4; // set to the last player
+		LinearLayout ll = (LinearLayout) findViewById(R.id.linear_players);
+		while (temp > size) {
+			ll.removeView((RelativeLayout) findViewById(getResources()
+					.getIdentifier("server_player" + Integer.toString(temp),
+							"id", "scrabble.rabble")));
+			temp--;
+		}
+	}
+
+	public void updatePlayers(PlayerList players) {
+		Player p;
+		for (int i = 0; i < maxPlayers; i++) {
+
+			p = players.get(i);
+			TextView tv = (TextView) findViewById(getResources().getIdentifier(
+					"display_name" + Integer.toString(i + 1), "id",
+					"scrabble.rabble"));
+			tv.setText(p.getName());
+
+			tv = (TextView) findViewById(getResources().getIdentifier(
+					"display_score" + Integer.toString(i + 1), "id",
+					"scrabble.rabble"));
+			tv.setText("Score:  " + Integer.toString(p.getPoints()));
+
+			tv = (TextView) findViewById(getResources().getIdentifier(
+					"display_avatar" + Integer.toString(i + 1), "id",
+					"scrabble.rabble"));
+			ViewGroup.LayoutParams lp = tv.getLayoutParams();
+			lp.width = 60;
+			lp.height = 60;
+			tv.setLayoutParams(lp);
+			tv.setBackgroundColor(Color.parseColor("#0066CC"));
+
+		}
 	}
 }
