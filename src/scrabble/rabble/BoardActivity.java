@@ -54,6 +54,8 @@ public class BoardActivity extends ActionBarActivity {
 	FrameLayout base;
 	RelativeLayout board;
 	RelativeLayout serverDetails;
+	ArrayList<Tile> boardState = new ArrayList<Tile>();
+	ArrayList<Tile> boardComplete = new ArrayList<Tile>();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -150,7 +152,6 @@ public class BoardActivity extends ActionBarActivity {
 		boardInstance.generate();
 
 		ArrayList<IntTile> tileArray = boardInstance.flatten();
-		ArrayList<Tile> strings = new ArrayList<Tile>();
 
 		Tile t;
 
@@ -161,7 +162,8 @@ public class BoardActivity extends ActionBarActivity {
 			} catch (Exception e) {
 				t = new Tile('-');
 			}
-			strings.add(t);
+			boardComplete.add(t);
+			boardState.add(new Tile('-'));
 		}
 
 		// while (strings.size() < 169)strings.add(new Tile('M'));
@@ -175,28 +177,125 @@ public class BoardActivity extends ActionBarActivity {
 		gv.setLayoutParams(lp);
 
 		// while(strings.size() < 169) strings.add(new Tile('M'));
-		gv.setAdapter(new GridAdapter(strings, boardHeight / 13, this));
+		gv.setAdapter(new GridAdapter(boardComplete, boardHeight / 13, this));
 
 		gv.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> a, View v, int position,
 					long id) {
 				TextView tv = (TextView) v;
-				Tile t = new Tile(tv.getText().toString().charAt(0));
+				if (tv.getText() != "") {
+					Tile t = new Tile(tv.getText().toString().charAt(0));
+					String string = "";
+					if (t.getValue() != '-') {
+						Tile temp = boardState.get(position);
+						if (temp.getValue() == '-') {
+							boardState.set(position, t);
+							string = "Tile placed";
+							int currentPosition = position;
+							boolean wordCompleted = true;
+							int direction = -1;
+							boolean canContinue = true;
+							if (currentPosition % 13 == 0) {// not on the last
+															// line
+								if (boardComplete.get(currentPosition + 1)
+										.getValue() == '-')
+									canContinue = false;
+							} else if (currentPosition % 12 == 0) {
+								if (boardComplete.get(currentPosition - 1)
+										.getValue() == '-')
+									canContinue = false;
+							} else if (boardComplete.get(currentPosition + 1)
+									.getValue() == '-'
+									&& boardComplete.get(currentPosition - 1)
+											.getValue() == '-') { // check the
+																	// one above
+								canContinue = false;
+							}
 
-				// /////////SEND TILE TO THE SERVER\\\\\\\\\\\\\\\\
-				Context context = getApplicationContext();
+							if (canContinue == true) {
+								while (wordCompleted == true) {
+									currentPosition += direction;
+									if (boardComplete.get(currentPosition)
+											.getValue() != '-') {
+										if (boardState.get(currentPosition)
+												.getValue() == '-')
+											wordCompleted = false;
+									} else {
+										if (direction == 1) {
+											wordCompleted();
+											wordCompleted = false; // break the
+																	// loop
+										} else {
+											direction = 1;
+											currentPosition = position;
+										}
+									}
+								}
+							}
+							wordCompleted = true;
+							direction = -13;
+							currentPosition = position;
+							canContinue = true;
+							if (currentPosition < 13) {// not on the last line
+								if (boardComplete.get(currentPosition + 13)
+										.getValue() == '-')
+									canContinue = false;
+							} else if (currentPosition > 155) {
+								if (boardComplete.get(currentPosition - 13)
+										.getValue() == '-')
+									canContinue = false;
+							} else if (boardComplete.get(currentPosition + 13)
+									.getValue() == '-'
+									&& boardComplete.get(currentPosition - 13)
+											.getValue() == '-') { // check the
+																	// one above
+								canContinue = false;
+							}
 
-				int duration = Toast.LENGTH_LONG;
-				Toast toast = Toast.makeText(context,
-						Character.toString(t.getValue()), duration);
-				toast.show();
-				// /////////////////////////////////////////////////
+							if (canContinue == true) {
+								while (wordCompleted == true) {
+									currentPosition += direction;
+									if (boardComplete.get(currentPosition)
+											.getValue() != '-') {
+										if (boardState.get(currentPosition)
+												.getValue() == '-')
+											wordCompleted = false;
+									} else {
+										if (direction == 13) {
+											wordCompleted();
+											wordCompleted = false; // break the
+																	// loop
+										} else {
+											direction = 13;
+											currentPosition = position;
+										}
+									}
+								}
+							}
+						} else
+							string = "Cannot place";
+					} else
+						string = "Cannot place";
+
+					// /////////SEND TILE TO THE SERVER\\\\\\\\\\\\\\\\
+					Context context = getApplicationContext();
+
+					int duration = Toast.LENGTH_LONG;
+					Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
+					// /////////////////////////////////////////////////Character.toString(t.getValue())
+				}
 			}
 		});
 
 	}
 
+	private void wordCompleted(){
+
+		Toast.makeText(this, "Word Completed", Toast.LENGTH_SHORT).show();
+	
+	}
+	
 	private int getBoardHeight() {
 		int h;
 		Display display = getWindowManager().getDefaultDisplay();

@@ -1,6 +1,8 @@
 package scrabble.rabble;
 
+
 import java.util.ArrayList;
+
 
 import scrabble.rabble.model.Player;
 import scrabble.rabble.model.PlayerList;
@@ -8,9 +10,15 @@ import scrabble.rabble.model.Sendable;
 import scrabble.rabble.model.Tile;
 import scrabble.rabble.model.TilePool;
 import scrabble.rabble.model.Type;
+import scrabble.rabble.network.ClientService;
+import scrabble.rabble.network.ServerService;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -27,6 +35,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ClientActivity extends ActionBarActivity {
+	
+	String serverName;
 	LinearLayout client; // screen with main UI
 	RelativeLayout details; // screen with UI for getting player details
 	FrameLayout baseLayout;
@@ -40,6 +50,30 @@ public class ClientActivity extends ActionBarActivity {
 
 	boolean firstUpdate = true;
 
+	private ClientService clientService;
+    private ServiceConnection clientServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            clientService = ((ClientService.LocalBinder) iBinder).getInstance();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            clientService = null;
+        }
+    };
+    private ServerService serverService;
+    private ServiceConnection serverServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+            serverService = ((ServerService.LocalBinder) iBinder).getInstance();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName componentName) {
+            clientService = null;
+        }
+    };
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,6 +95,9 @@ public class ClientActivity extends ActionBarActivity {
 				add("DEMONSTRATION");
 			}
 		};
+
+		Intent intent = getIntent();
+		serverName = intent.getStringExtra(MainActivity.SERVER_NAME);
 		tempTilePool = new TilePool(words);
 		baseLayout = (FrameLayout) findViewById(R.id.container);
 		client = (LinearLayout) findViewById(R.id.layout_client_screen);
@@ -148,12 +185,15 @@ public class ClientActivity extends ActionBarActivity {
 			Player p1 = new Player();
 			p1.setName("Tom");
 			p1.setTiles(tempTilePool.getTiles(5));
+			p1.setAge(10);
 			Player p2 = new Player();
 			p2.setName("Jojo");
 			p2.setTiles(tempTilePool.getTiles(3));
+			p2.setAge(30);
 			Player p3 = new Player();
 			p3.setName("Leo");
 			p3.setTiles(tempTilePool.getTiles(4));
+			p3.setAge(8);
 			alp = new PlayerList();
 			alp.addPlayer(p1);
 			alp.addPlayer(myPlayer);

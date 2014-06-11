@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.os.Build;
 
 public class MainActivity extends ActionBarActivity {
+
+	public final static String SERVER_NAME = "";
 	ArrayList<String> servers;
 	String selectedLobby;
 	@Override
@@ -109,6 +111,7 @@ public class MainActivity extends ActionBarActivity {
 	 public void joinGame(View view){
 		 // request the server to join as a client, then execute 
 		 Intent intent = new Intent(this,ClientActivity.class);
+		 intent.putExtra(SERVER_NAME, selectedLobby);
 		 startActivity(intent);
 	 }
 	 
