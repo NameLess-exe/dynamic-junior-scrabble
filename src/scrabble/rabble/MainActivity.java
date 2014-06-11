@@ -1,3 +1,4 @@
+
 package scrabble.rabble;
 
 import java.util.ArrayList;
@@ -6,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,6 +24,8 @@ public class MainActivity extends ActionBarActivity {
 	public final static String SERVER_NAME = "";
 	ArrayList<String> servers;
 	String selectedLobby;
+
+	MediaPlayer player;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,6 +46,12 @@ public class MainActivity extends ActionBarActivity {
 		servers.add("Random scrabble lobby");
 		servers.add("Nameless lobby");
 		updateServers();
+		
+		//plays the theme song of my life
+		player = MediaPlayer.create(this, R.raw.wallpaper);
+		player.setLooping(true); // Set looping
+		player.setVolume(100,100);
+		player.start();
 	}
 
 	@Override
@@ -119,4 +129,18 @@ public class MainActivity extends ActionBarActivity {
 		Intent intent = new Intent(this, BoardActivity.class);
 		startActivity(intent);
 	 }
+	 @Override
+	 public void onPause() {
+		 super.onPause();
+		 //pauses the epic beats
+		 player.pause();
+	 }
+	 
+	 @Override
+	 public void onResume() {
+		 super.onResume();
+		 //resumes the beats
+		 player.start();
+	 }
 }
+

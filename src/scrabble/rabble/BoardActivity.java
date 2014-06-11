@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import scrabble.rabble.board.Board;
+import scrabble.rabble.board.Dictionary;
 import scrabble.rabble.model.Player;
 import scrabble.rabble.model.PlayerList;
 import scrabble.rabble.model.Sendable;
@@ -43,7 +45,7 @@ public class BoardActivity extends ActionBarActivity {
 
 	private int WIDTH = 13;
 	private int HEIGHT = 13;
-	private Crossword boardInstance;
+	private Board boardInstance;
 	PlayerList alp;
 	String serverName;
 	int maxPlayers;
@@ -117,9 +119,9 @@ public class BoardActivity extends ActionBarActivity {
 		// //////////// TEST \\\\\\\\\\\\\\\\
 		Player myPlayer = new Player();
 		myPlayer.setPoints(1);
+		myPlayer.setName("Matt");
 		Player p1 = new Player();
 		p1.setName("Tom");
-		p1.setPoints(5);
 		Player p2 = new Player();
 		p2.setName("Jojo");
 		p2.setPoints(4);
@@ -148,17 +150,17 @@ public class BoardActivity extends ActionBarActivity {
 			e.printStackTrace();
 		}
 
-		boardInstance = new Crossword(WIDTH, HEIGHT, dictionary, this);
+		boardInstance = new Board(WIDTH, HEIGHT, dictionary);
 		boardInstance.generate();
 
-		ArrayList<IntTile> tileArray = boardInstance.flatten();
+		ArrayList<scrabble.rabble.board.Tile> tileArray = boardInstance
+				.flatten();
 
 		Tile t;
 
 		for (int i = 0; i < tileArray.size(); i++) {
 			try {
-				Button b = (Button) tileArray.get(i).getView();
-				t = new Tile(b.getText().toString().charAt(0));
+				t = new Tile(tileArray.get(i).getChar());
 			} catch (Exception e) {
 				t = new Tile('-');
 			}
@@ -216,7 +218,7 @@ public class BoardActivity extends ActionBarActivity {
 							if (canContinue == true) {
 								while (wordCompleted == true) {
 									currentPosition += direction;
-									if (boardComplete.get(currentPosition)
+									if (currentPosition >= 0 && boardComplete.get(currentPosition)
 											.getValue() != '-') {
 										if (boardState.get(currentPosition)
 												.getValue() == '-')
@@ -256,7 +258,8 @@ public class BoardActivity extends ActionBarActivity {
 							if (canContinue == true) {
 								while (wordCompleted == true) {
 									currentPosition += direction;
-									if (boardComplete.get(currentPosition)
+
+									 if (currentPosition >= 0 && boardComplete.get(currentPosition)
 											.getValue() != '-') {
 										if (boardState.get(currentPosition)
 												.getValue() == '-')
@@ -290,12 +293,12 @@ public class BoardActivity extends ActionBarActivity {
 
 	}
 
-	private void wordCompleted(){
-
-		Toast.makeText(this, "Word Completed", Toast.LENGTH_SHORT).show();
-	
+	private void wordCompleted() {
+		Player p = alp.get(0);
+		p.setPoints(p.getPoints() + 1);
+		updatePlayers(alp);
 	}
-	
+
 	private int getBoardHeight() {
 		int h;
 		Display display = getWindowManager().getDefaultDisplay();

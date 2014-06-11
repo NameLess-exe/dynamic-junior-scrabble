@@ -416,7 +416,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
-                        android:background="@drawable/wood_tile"
+                        android:background="#F29700"
                         android:gravity="center"
                         android:textSize="32sp"
                         android:textStyle="bold" />
@@ -431,7 +431,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
-                        android:background="@drawable/wood_tile"
+                        android:background="#F29700"
                         android:gravity="center"
                         android:textSize="32sp"
                         android:textStyle="bold" />
@@ -446,7 +446,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
-                        android:background="@drawable/wood_tile"
+                        android:background="#F29700"
                         android:gravity="center"
                         android:textSize="32sp"
                         android:textStyle="bold" />
@@ -461,7 +461,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
-                        android:background="@drawable/wood_tile"
+                        android:background="#F29700"
                         android:gravity="center"
                         android:textSize="32sp"
                         android:textStyle="bold" />
@@ -476,7 +476,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.2"
-                        android:background="@drawable/wood_tile"
+                        android:background="#F29700"
                         android:gravity="center"
                         android:textSize="32sp"
                         android:textStyle="bold" />
