@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import scrabble.rabble.board.Board;
+import scrabble.rabble.board.Dictionary;
 import scrabble.rabble.model.Tile;
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -20,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -32,7 +33,7 @@ public class BoardActivity extends ActionBarActivity {
 
 	private int WIDTH = 13;
 	private int HEIGHT = 13;
-	private Crossword boardInstance;
+	private Board boardInstance;
 	String serverName;
 	int maxPlayers;
 	int currentPlayers;
@@ -131,21 +132,17 @@ public class BoardActivity extends ActionBarActivity {
 			e.printStackTrace();
 		}
 
-		boardInstance = new Crossword(WIDTH, HEIGHT, dictionary, this);
+		boardInstance = new Board(WIDTH, HEIGHT, dictionary);
 		boardInstance.generate();
 
-		ArrayList<IntTile> tileArray = boardInstance.flatten();
+		ArrayList<scrabble.rabble.board.Tile> tileArray = boardInstance
+				.flatten();
 		ArrayList<Tile> strings = new ArrayList<Tile>();
 
 		Tile t;
 
 		for (int i = 0; i < tileArray.size(); i++) {
-			try {
-				Button b = (Button) tileArray.get(i).getView();
-				t = new Tile(b.getText().toString().charAt(0));
-			} catch (Exception e) {
-				t = new Tile('-');
-			}
+			t = new Tile(tileArray.get(i).getChar());
 			strings.add(t);
 		}
 
