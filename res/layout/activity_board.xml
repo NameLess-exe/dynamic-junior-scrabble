@@ -323,6 +323,7 @@
                 android:id="@+id/gridView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="#F29700"
                 android:numColumns="13" >
             </GridView>
 

@@ -177,8 +177,6 @@ public class BoardActivity extends ActionBarActivity {
 		lp.height = boardHeight;
 		lp.width = boardHeight;
 		gv.setLayoutParams(lp);
-
-		// while(strings.size() < 169) strings.add(new Tile('M'));
 		gv.setAdapter(new GridAdapter(boardComplete, boardHeight / 13, this));
 
 		gv.setOnItemClickListener(new OnItemClickListener() {
@@ -187,18 +185,23 @@ public class BoardActivity extends ActionBarActivity {
 					long id) {
 				TextView tv = (TextView) v;
 				if (tv.getText() != "") {
-					Tile t = new Tile(tv.getText().toString().charAt(0));
+					Tile t = new Tile(tv.getText().toString().charAt(0)); // board
+																			// tile
 					String string = "";
 					if (t.getValue() != '-') {
 						Tile temp = boardState.get(position);
 						if (temp.getValue() == '-') {
 							boardState.set(position, t);
-							string = "Tile placed";
+							tv.setTextColor(Color.parseColor("#000000"));
 							int currentPosition = position;
 							boolean wordCompleted = true;
 							int direction = -1;
 							boolean canContinue = true;
-							if (currentPosition % 13 == 0) {// not on the last
+
+							// checks initial conditions for horizontal
+							// checking
+							if (currentPosition % 13 == 0) {// not on the
+															// last
 															// line
 								if (boardComplete.get(currentPosition + 1)
 										.getValue() == '-')
@@ -210,23 +213,28 @@ public class BoardActivity extends ActionBarActivity {
 							} else if (boardComplete.get(currentPosition + 1)
 									.getValue() == '-'
 									&& boardComplete.get(currentPosition - 1)
-											.getValue() == '-') { // check the
-																	// one above
+											.getValue() == '-') { // check
+																	// the
+																	// one
+																	// above
 								canContinue = false;
 							}
 
 							if (canContinue == true) {
 								while (wordCompleted == true) {
 									currentPosition += direction;
-									if (currentPosition >= 0 && boardComplete.get(currentPosition)
-											.getValue() != '-') {
+									if (currentPosition >= 0
+											&& currentPosition <= 168
+											&& boardComplete.get(
+													currentPosition).getValue() != '-') {
 										if (boardState.get(currentPosition)
 												.getValue() == '-')
 											wordCompleted = false;
 									} else {
 										if (direction == 1) {
 											wordCompleted();
-											wordCompleted = false; // break the
+											wordCompleted = false; // break
+																	// the
 																	// loop
 										} else {
 											direction = 1;
@@ -239,7 +247,8 @@ public class BoardActivity extends ActionBarActivity {
 							direction = -13;
 							currentPosition = position;
 							canContinue = true;
-							if (currentPosition < 13) {// not on the last line
+							if (currentPosition < 13) {// not on the last
+														// line
 								if (boardComplete.get(currentPosition + 13)
 										.getValue() == '-')
 									canContinue = false;
@@ -247,27 +256,35 @@ public class BoardActivity extends ActionBarActivity {
 								if (boardComplete.get(currentPosition - 13)
 										.getValue() == '-')
 									canContinue = false;
-							} else if (boardComplete.get(currentPosition + 13)
-									.getValue() == '-'
-									&& boardComplete.get(currentPosition - 13)
-											.getValue() == '-') { // check the
-																	// one above
-								canContinue = false;
+							} else {
+								if (boardComplete.get(currentPosition + 13)
+										.getValue() == '-'
+										&& boardComplete.get(
+												currentPosition - 13)
+												.getValue() == '-') { // check
+																		// the
+																		// one
+																		// above
+									canContinue = false;
+								}
 							}
 
 							if (canContinue == true) {
 								while (wordCompleted == true) {
 									currentPosition += direction;
 
-									 if (currentPosition >= 0 && boardComplete.get(currentPosition)
-											.getValue() != '-') {
+									if (currentPosition >= 0
+											&& currentPosition <= 168
+											&& boardComplete.get(
+													currentPosition).getValue() != '-') {
 										if (boardState.get(currentPosition)
 												.getValue() == '-')
 											wordCompleted = false;
 									} else {
 										if (direction == 13) {
 											wordCompleted();
-											wordCompleted = false; // break the
+											wordCompleted = false; // break
+																	// the
 																	// loop
 										} else {
 											direction = 13;
@@ -276,16 +293,16 @@ public class BoardActivity extends ActionBarActivity {
 									}
 								}
 							}
+
 						} else
-							string = "Cannot place";
+							Toast.makeText(getApplicationContext(),
+									"Cannot place", Toast.LENGTH_SHORT).show();
 					} else
-						string = "Cannot place";
+						Toast.makeText(getApplicationContext(), "Cannot place",
+								Toast.LENGTH_SHORT).show();
 
 					// /////////SEND TILE TO THE SERVER\\\\\\\\\\\\\\\\
-					Context context = getApplicationContext();
 
-					int duration = Toast.LENGTH_LONG;
-					Toast.makeText(context, string, Toast.LENGTH_SHORT).show();
 					// /////////////////////////////////////////////////Character.toString(t.getValue())
 				}
 			}
@@ -412,7 +429,7 @@ public class BoardActivity extends ActionBarActivity {
 			if (convertView == null) {
 				textView = (TextView) LayoutInflater.from(mContext).inflate(
 						R.layout.view, null);
-			  //textView.setBackground();
+				textView.setBackgroundResource(R.drawable.outline);
 				textView.setLayoutParams(new GridView.LayoutParams(vSize, vSize));
 			} else {
 				textView = (TextView) convertView;
@@ -421,7 +438,7 @@ public class BoardActivity extends ActionBarActivity {
 			String s;
 			if (mItems.get(position).getValue() == '-') {
 				s = "";
-				textView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+				textView.setBackgroundResource(0);
 			} else {
 				s = Character.toString(mItems.get(position).getValue());
 				textView.setText(s);
