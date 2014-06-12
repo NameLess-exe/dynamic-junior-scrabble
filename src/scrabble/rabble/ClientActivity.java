@@ -87,12 +87,29 @@ public class ClientActivity extends ActionBarActivity {
 		EditText ageText = (EditText) findViewById(R.id.editText_Age);
 		nameText.setText("Matt");
 		ageText.setText("18");
-		ArrayList<String> words = new ArrayList<String>() {
+		ArrayList<Tile> words = new ArrayList<Tile>() {
 			{
-				add("HELLO");
-				add("SCRABBLE");
-				add("GAME");
-				add("DEMONSTRATION");
+				add(new Tile('A'));
+				add(new Tile('B'));
+				add(new Tile('C'));
+				add(new Tile('D'));
+				add(new Tile('E'));
+				add(new Tile('F'));
+				add(new Tile('G'));
+				add(new Tile('H'));
+				add(new Tile('I'));
+				add(new Tile('J'));
+				add(new Tile('A'));
+				add(new Tile('B'));
+				add(new Tile('C'));
+				add(new Tile('D'));
+				add(new Tile('E'));
+				add(new Tile('F'));
+				add(new Tile('G'));
+				add(new Tile('H'));
+				add(new Tile('I'));
+				add(new Tile('J'));
+				
 			}
 		};
 
@@ -332,6 +349,7 @@ public class ClientActivity extends ActionBarActivity {
 					"scrabble.rabble"));
 			tv.setBackgroundColor(Color.parseColor("#0066CC"));
 		}
+		
 		for (int i = 0; i < 9; i++) {
 			if (temp.getId() == getResources().getIdentifier(
 					"player_avatar" + Integer.toString(i + 1), "id",
@@ -349,6 +367,7 @@ public class ClientActivity extends ActionBarActivity {
 		TextView temp = (TextView) view;
 		boolean valid = true;
 		int i = 0;
+		try{
 		while (valid == true) {
 			if (temp.getId() == getResources().getIdentifier(
 					"textView_tile" + Integer.toString(i + 1), "id",
@@ -371,6 +390,7 @@ public class ClientActivity extends ActionBarActivity {
 			if (i > myPlayer.getTiles().size())
 				valid = false;
 		}
+		}catch(Exception e){}
 		dispatch((Sendable) alp);
 	}
 

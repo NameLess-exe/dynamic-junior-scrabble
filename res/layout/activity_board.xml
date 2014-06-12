@@ -79,7 +79,7 @@
                 android:id="@+id/server_avatar1"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="@drawable/blue"
                 android:clickable="true"
                 android:onClick="setServerAvatar" />
 
@@ -91,7 +91,7 @@
                 android:id="@+id/server_avatar2"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="@drawable/red"
                 android:clickable="true"
                 android:onClick="setServerAvatar" />
 
@@ -103,7 +103,7 @@
                 android:id="@+id/server_avatar3"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="@drawable/yellow"
                 android:clickable="true"
                 android:onClick="setServerAvatar" />
 
@@ -115,7 +115,7 @@
                 android:id="@+id/server_avatar4"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="#0066CC"
+                android:background="@drawable/pink"
                 android:clickable="true"
                 android:onClick="setServerAvatar" />
         </LinearLayout>

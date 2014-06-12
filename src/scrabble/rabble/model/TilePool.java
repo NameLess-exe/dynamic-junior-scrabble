@@ -6,12 +6,11 @@ import java.util.Random;
 public class TilePool {
     private ArrayList<Tile> tp = new ArrayList<Tile>();  // List of tiles
     
-    public TilePool(ArrayList<String> sArray){
+    public TilePool(ArrayList<Tile> sArray){
+    	Tile t;
         for(int i = 0;i < sArray.size();i++){
-            int wordSize = sArray.get(i).length();
-            for(int x = 0;x < wordSize;x++){
-                tp.add(new Tile(sArray.get(i).charAt(x)));
-            }
+            t = sArray.get(i);
+            if(t.getValue() != '-') tp.add(t);
         }
     }
     

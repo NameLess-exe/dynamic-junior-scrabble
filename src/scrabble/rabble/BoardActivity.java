@@ -412,6 +412,7 @@ public class BoardActivity extends ActionBarActivity {
 			if (convertView == null) {
 				textView = (TextView) LayoutInflater.from(mContext).inflate(
 						R.layout.view, null);
+			  //textView.setBackground();
 				textView.setLayoutParams(new GridView.LayoutParams(vSize, vSize));
 			} else {
 				textView = (TextView) convertView;
