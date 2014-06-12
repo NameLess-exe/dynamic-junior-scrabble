@@ -391,20 +391,20 @@ public class ClientActivity extends ActionBarActivity {
 				valid = false;
 		}
 		}catch(Exception e){}
-		dispatch((Sendable) alp);
+		updateUi(alp);
 	}
 
 	public void dispatch(Sendable o) {
 		if (o.getType() == Type.PLAYER) {
 			myPlayer = (Player) o;
 		} else if (o.getType() == Type.PLAYERLIST) {
-			PlayerList p = (PlayerList) o;
+			alp = (PlayerList) o;
 			if (firstUpdate == true) {
 				firstUpdate = false;
-				addUi(p.size());
-				updateUi(p);
+				addUi(alp.size());
+				updateUi(alp);
 			} else {
-				updateUi(p);
+				updateUi(alp);
 			}
 		} else {
 			Log.e("Object type error",
